@@ -8,6 +8,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(process.cwd(), 'index.html'),
+        yongin: resolve(process.cwd(), 'yongin.html'),
         gwangju: resolve(process.cwd(), 'gwangju.html'),
       },
     },

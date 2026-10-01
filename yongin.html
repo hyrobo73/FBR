@@ -1,20 +1,20 @@
 <!doctype html>
-<html lang="ko" data-city="gwangju">
+<html lang="ko" data-city="yongin">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#fcfaf6" />
-    <meta name="description" content="경기도 광주시 맛집을 카테고리별로 살펴보는 지도" />
-    <title>광주 한입 지도</title>
+    <meta name="description" content="용인시 맛집을 카테고리별로 살펴보는 지도" />
+    <title>용인 한입 지도</title>
   </head>
   <body>
     <div id="app">
-      <aside class="sidebar" aria-label="광주 맛집 검색 및 목록">
+      <aside class="sidebar" aria-label="용인 맛집 검색 및 목록">
         <header class="brand">
-          <div class="brand-mark" aria-hidden="true">광주</div>
-          <div><p class="eyebrow">GWANGJU FOOD MAP</p><h1>광주 한입 지도</h1></div>
+          <div class="brand-mark" aria-hidden="true">용인</div>
+          <div><p class="eyebrow">YONGIN FOOD MAP</p><h1>용인 한입 지도</h1></div>
         </header>
-        <p class="intro">경기도 광주의 좋은 한 끼를 취향에 따라 지도 위에서 발견해 보세요.</p>
+        <p class="intro">용인의 좋은 한 끼를 취향에 따라 지도 위에서 발견해 보세요.</p>
         <a class="all-cities-link" href="/">← 경기도 맛집지도</a>
         <form id="search-form" class="search-form">
           <label class="sr-only" for="search-input">맛집 검색</label>
@@ -27,13 +27,13 @@
           <button id="location-button" class="location-button" type="button" title="내 위치로 이동" aria-label="내 위치로 이동"><span aria-hidden="true">◎</span> 내 위치</button>
         </div>
         <div id="status" class="status" role="status" aria-live="polite">지도를 준비하고 있어요.</div>
-        <ul id="restaurant-list" class="restaurant-list" aria-label="광주 맛집 목록"></ul>
+        <ul id="restaurant-list" class="restaurant-list" aria-label="용인 맛집 목록"></ul>
         <footer class="sidebar-footer">장소 및 지도 정보 제공 · Kakao Maps</footer>
       </aside>
 
       <main class="map-shell" data-theme="전체">
-        <div id="map" aria-label="경기도 광주시 맛집 지도"></div>
-        <div class="map-caption"><span></span><strong>경기도 광주시</strong> 맛집을 둘러보는 중</div>
+        <div id="map" aria-label="용인 맛집 지도"></div>
+        <div class="map-caption"><span></span><strong>용인시</strong> 맛집을 둘러보는 중</div>
         <nav id="category-tabs" class="map-category-tabs" aria-label="음식 카테고리">
           <button type="button" class="is-active" data-category="전체" aria-pressed="true"><span aria-hidden="true">🍽️</span>전체</button>
           <button type="button" data-category="한식" aria-pressed="false"><span aria-hidden="true">🍚</span>한식</button>

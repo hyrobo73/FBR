@@ -209,8 +209,9 @@ async function loadRestaurants() {
   if (appConfig.coordinates.source === appConfig.source && appConfig.coordinates.restaurants.length) {
     state.allPlaces = appConfig.coordinates.restaurants;
     applyFilters();
-    if (appConfig.coordinates.unmatchedCount) {
-      setStatus(`Kakao 장소와 매칭되지 않은 ${appConfig.coordinates.unmatchedCount}곳은 지도에서 제외했어요.`, 'notice');
+    const unmatchedCount = appConfig.coordinates.unmatchedRestaurants?.length ?? appConfig.coordinates.unmatchedCount;
+    if (unmatchedCount) {
+      setStatus(`Kakao 장소와 매칭되지 않은 ${unmatchedCount}곳은 지도에서 제외했어요.`, 'notice');
     }
     return;
   }

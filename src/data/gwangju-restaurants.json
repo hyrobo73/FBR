@@ -2,8 +2,8 @@
   "source": "광주시_맛집.csv",
   "generatedAt": "2026-10-01T03:23:34.337Z",
   "total": 67,
-  "matchedCount": 63,
-  "unmatchedCount": 4,
+  "matchedCount": 66,
+  "unmatchedCount": 1,
   "restaurants": [
     {
       "id": "csv-gwangju-1",
@@ -1129,9 +1129,7 @@
       "kakaoCategory": "음식점 > 일식 > 일본식라면",
       "url": "http://place.map.kakao.com/687802831",
       "matchedAddress": "경기 광주시 새말길 61"
-    }
-  ],
-  "unmatchedRestaurants": [
+    },
     {
       "id": "csv-gwangju-41",
       "name": "오화루중화요리",
@@ -1140,12 +1138,11 @@
       "category": "중식",
       "city": "gwangju",
       "source": "csv",
-      "matchStatus": "unmatched",
       "lat": 37.3812801897434,
       "lng": 127.22767920466,
-      "coordinateStatus": "address_geocoded",
-      "geocodedAddress": "경기 광주시 태성로 98",
-      "reason": "Kakao 장소 검색 결과 없음"
+      "matchStatus": "matched",
+      "kakaoId": "1697869381",
+      "url": "http://place.map.kakao.com/1697869381"
     },
     {
       "id": "csv-gwangju-43",
@@ -1155,12 +1152,11 @@
       "category": "중식",
       "city": "gwangju",
       "source": "csv",
-      "matchStatus": "unmatched",
       "lat": 37.3453018509931,
       "lng": 127.212445436698,
-      "coordinateStatus": "address_geocoded",
-      "geocodedAddress": "경기 광주시 오포로 526",
-      "reason": "Kakao 장소 검색 결과 없음"
+      "matchStatus": "matched",
+      "kakaoId": "838138950",
+      "url": "http://place.map.kakao.com/838138950"
     },
     {
       "id": "csv-gwangju-47",
@@ -1170,13 +1166,14 @@
       "category": "중식",
       "city": "gwangju",
       "source": "csv",
-      "matchStatus": "unmatched",
       "lat": 37.3497835173658,
       "lng": 127.169307657736,
-      "coordinateStatus": "address_geocoded",
-      "geocodedAddress": "경기 광주시 능평로 104",
-      "reason": "Kakao 장소 검색 결과 없음"
-    },
+      "matchStatus": "matched",
+      "kakaoId": "806624295",
+      "url": "http://place.map.kakao.com/806624295"
+    }
+  ],
+  "unmatchedRestaurants": [
     {
       "id": "csv-gwangju-62",
       "name": "키라네라멘 곤지암 본점",
