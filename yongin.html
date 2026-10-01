@@ -15,7 +15,6 @@
           <div><p class="eyebrow">YONGIN FOOD MAP</p><h1>용인 한입 지도</h1></div>
         </header>
         <p class="intro">용인의 좋은 한 끼를 취향에 따라 지도 위에서 발견해 보세요.</p>
-        <a class="all-cities-link" href="/">← 경기도 맛집지도</a>
         <form id="search-form" class="search-form">
           <label class="sr-only" for="search-input">맛집 검색</label>
           <span class="search-icon" aria-hidden="true"></span>
@@ -32,6 +31,14 @@
       </aside>
 
       <main class="map-shell" data-theme="전체">
+        <a class="home-button" href="/" aria-label="경기도 맛집지도 홈으로 돌아가기" title="홈으로 돌아가기">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 10.5 12 3l9 7.5" />
+            <path d="M5.5 9.5V21h13V9.5" />
+            <path d="M9.5 21v-6h5v6" />
+          </svg>
+          <span>홈</span>
+        </a>
         <div id="map" aria-label="용인 맛집 지도"></div>
         <div class="map-caption"><span></span><strong>용인시</strong> 맛집을 둘러보는 중</div>
         <nav id="category-tabs" class="map-category-tabs" aria-label="음식 카테고리">
