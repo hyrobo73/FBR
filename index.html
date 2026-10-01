@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fcfaf6" />
+    <meta name="description" content="용인시 맛집을 카테고리별로 살펴보는 지도" />
+    <title>용인 한입 지도</title>
+  </head>
+  <body>
+    <div id="app">
+      <aside class="sidebar" aria-label="용인 맛집 검색 및 목록">
+        <header class="brand">
+          <div class="brand-mark" aria-hidden="true">용인</div>
+          <div><p class="eyebrow">YONGIN FOOD MAP</p><h1>용인 한입 지도</h1></div>
+        </header>
+        <p class="intro">용인의 좋은 한 끼를 취향에 따라 지도 위에서 발견해 보세요.</p>
+        <form id="search-form" class="search-form">
+          <label class="sr-only" for="search-input">맛집 검색</label>
+          <span class="search-icon" aria-hidden="true"></span>
+          <input id="search-input" type="search" placeholder="식당명 또는 주소 검색" autocomplete="off" />
+          <button type="submit">검색</button>
+        </form>
+        <div class="list-heading">
+          <div><p id="result-label" class="result-label">전체 맛집</p><strong id="result-count">불러오는 중</strong></div>
+          <button id="location-button" class="location-button" type="button" title="내 위치로 이동" aria-label="내 위치로 이동"><span aria-hidden="true">◎</span> 내 위치</button>
+        </div>
+        <div id="status" class="status" role="status" aria-live="polite">지도를 준비하고 있어요.</div>
+        <ul id="restaurant-list" class="restaurant-list" aria-label="용인 맛집 목록"></ul>
+        <footer class="sidebar-footer">장소 및 지도 정보 제공 · Kakao Maps</footer>
+      </aside>
+
+      <main class="map-shell" data-theme="전체">
+        <div id="map" aria-label="용인 맛집 지도"></div>
+        <div class="map-caption"><span></span><strong>용인시</strong> 맛집을 둘러보는 중</div>
+        <nav id="category-tabs" class="map-category-tabs" aria-label="음식 카테고리">
+          <button type="button" class="is-active" data-category="전체" aria-pressed="true"><span aria-hidden="true">🍽️</span>전체</button>
+          <button type="button" data-category="한식" aria-pressed="false"><span aria-hidden="true">🍚</span>한식</button>
+          <button type="button" data-category="중식" aria-pressed="false"><span aria-hidden="true">🏮</span>중식</button>
+          <button type="button" data-category="일식" aria-pressed="false"><span aria-hidden="true">🍣</span>일식</button>
+          <button type="button" data-category="양식" aria-pressed="false"><span aria-hidden="true">🥖</span>양식</button>
+        </nav>
+        <div class="theme-props" aria-hidden="true"><span class="prop-one"></span><span class="prop-two"></span><span class="prop-three"></span></div>
+        <button id="mobile-list-button" class="mobile-list-button" type="button">목록 보기</button>
+      </main>
+    </div>
+
+    <dialog id="place-dialog" class="place-dialog" aria-labelledby="dialog-name">
+      <button id="dialog-close" class="dialog-close" type="button" aria-label="팝업 닫기">×</button>
+      <p id="dialog-category" class="dialog-category"></p>
+      <h2 id="dialog-name"></h2>
+      <div class="dialog-rating"><span aria-hidden="true">★</span> <strong id="dialog-rating"></strong><small>맛집정보 평점</small></div>
+      <dl class="place-details">
+        <div><dt>주소</dt><dd id="dialog-address"></dd></div>
+        <div id="dialog-phone-row"><dt>전화</dt><dd id="dialog-phone"></dd></div>
+      </dl>
+      <p id="dialog-help" class="dialog-help">카카오 평점과 방문자 리뷰는 카카오맵 상세 페이지에서 확인할 수 있어요.</p>
+      <a id="dialog-kakao-link" class="kakao-review-link" href="#" target="_blank" rel="noopener noreferrer">카카오맵 평점·리뷰 보기 <span aria-hidden="true">↗</span></a>
+    </dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

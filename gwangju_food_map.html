@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>경기도 광주시 맛집 지도</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font:15px/1.6 system-ui,sans-serif;color:#20342b;background:#f6f8f5}header{padding:20px 26px;background:#164c39;color:white}h1{font-size:25px;margin:0}header p{margin:4px 0;opacity:.85}main{display:grid;grid-template-columns:360px 1fr;height:calc(100dvh - 108px);min-height:580px}aside{padding:20px;overflow:auto}label{display:block;font-weight:650;margin-top:10px}input,select,button{font:inherit;padding:10px;border:1px solid #c8d6cd;border-radius:8px}input,select{width:100%;background:white}button{cursor:pointer;background:#164c39;color:white}button:disabled{opacity:.45;cursor:default}form button{width:100%;margin-top:14px}.note{font-size:12px;color:#57685f}#status{padding:12px 0;font-size:14px}#list{list-style:none;padding:0;margin:0}.card{padding:15px 0;border-top:1px solid #dbe3dd}.card button{border:0;padding:0;background:none;color:#164c39;text-align:left;font-weight:bold;font-size:17px}.card p{margin:4px 0;font-size:13px}.card a{color:#23634c;font-size:13px}#map{background:#e4ebe5;min-height:420px;position:relative}#placeholder{padding:40px;max-width:620px}#pages{display:flex;gap:8px;align-items:center;margin:12px 0}#pages button{padding:6px 12px}.info{padding:12px;width:250px;white-space:normal;font-size:13px}.info strong{display:block;font-size:16px}details{margin-top:18px}summary{cursor:pointer}a{color:#17604b}@media(max-width:760px){main{display:flex;flex-direction:column;height:auto}#map{height:52dvh;order:-1}aside{overflow:visible}header{padding:15px 20px}}
+</style>
+</head>
+<body>
+<header><h1>광주, 한 끼의 발견</h1><p>경기도 광주시 음식점 · 카카오 지도 검색</p></header>
+<main><aside>
+<form id="searchForm">
+<label for="area">지역 키워드</label><select id="area"><option value="">광주시 전체</option><option>경안동</option><option>송정동</option><option>태전동</option><option>오포</option><option>곤지암읍</option><option>초월읍</option><option>퇴촌면</option><option>남한산성면</option><option>도척면</option><option>남종면</option></select>
+<label for="food">음식 종류</label><select id="food"><option value="">전체 음식점</option><option>한식</option><option>중식</option><option>일식</option><option>양식</option><option>분식</option><option>고기</option><option>국밥</option></select>
+<label for="keyword">가게 이름 또는 메뉴</label><input id="keyword" placeholder="예: 칼국수, 한정식" maxlength="60"><button id="search" disabled>음식점 검색</button>
+</form>
+<p class="note">‘맛집’ 키워드 검색 서비스입니다. 별점 순위나 추천 인증을 뜻하지 않습니다. 지역·음식 종류는 검색어에 반영됩니다.</p>
+<div id="status" role="status" aria-live="polite">JavaScript 키를 설정하면 검색할 수 있습니다.</div>
+<ul id="list"></ul><nav id="pages" aria-label="검색 결과 페이지"></nav>
+<details open id="setup"><summary>처음 실행하는 방법</summary><ol class="note"><li>카카오디벨로퍼스에서 앱을 만들고 [카카오맵 → 사용 설정]을 ON으로 설정합니다.</li><li>JavaScript 키의 SDK 도메인에 http://localhost:8000 을 등록합니다.</li><li>아래 입력란에 JavaScript 키를 입력하거나 파일의 KAKAO_JAVASCRIPT_KEY를 수정합니다.</li><li>파일이 있는 폴더에서 <code>py -m http.server 8000 --bind 127.0.0.1</code>을 실행하고 http://localhost:8000/gwangju_food_map.html 로 접속합니다.</li></ol>
+<label for="appkey">카카오 JavaScript 키</label><input id="appkey" autocomplete="off" spellcheck="false" placeholder="JavaScript 키 입력"><button id="connect" type="button">지도 연결</button><p class="note">입력한 키는 이 페이지에서만 사용하며 저장하지 않습니다. REST API 키나 Admin 키를 넣지 마세요. 키 변경·재시도는 새로고침 후 진행하세요.</p></details>
+</aside><section id="map" aria-label="음식점 지도"><div id="placeholder"><h2>지도 연결을 기다리고 있어요</h2><p>왼쪽 ‘처음 실행하는 방법’에 따라 키를 설정하세요.</p><p>검색 결과는 카카오에서 실시간으로 가져오며, 주소가 경기도 광주시인 음식점만 표시합니다.</p></div></section></main>
+<script>
+'use strict';
+// 본인 앱의 JavaScript 키를 입력하면 자동으로 연결됩니다.
+const KAKAO_JAVASCRIPT_KEY = '';
+const $ = id => document.getElementById(id);
+let map, places, info, markers = [], requestId = 0;
+const message = text => { $('status').textContent = text; };
+const isGwangju = p => /^(경기|경기도)\s+광주시(?:\s|$)/.test(p.address_name || p.road_address_name || '');
+function clearResults(){markers.forEach(m=>m.setMap(null));markers=[];if(info)info.close();$('list').replaceChildren();$('pages').replaceChildren();}
+function placeLink(p){const a=document.createElement('a');a.textContent='카카오맵 상세 보기 ↗';a.href='https://place.map.kakao.com/'+encodeURIComponent(p.id);a.target='_blank';a.rel='noopener noreferrer';return a;}
+function showPlace(p,marker){
+ const box=document.createElement('div');box.className='info';
+ const title=document.createElement('strong');title.textContent=p.place_name;
+ const address=document.createElement('p');address.textContent=p.road_address_name||p.address_name;
+ box.append(title,address,placeLink(p));info.setContent(box);info.open(map,marker);map.panTo(marker.getPosition());
+}
+function render(data){
+ const bounds=new kakao.maps.LatLngBounds();
+ data.forEach((p,i)=>{
+  const position=new kakao.maps.LatLng(Number(p.y),Number(p.x));
+  const marker=new kakao.maps.Marker({map,position,title:p.place_name});markers.push(marker);bounds.extend(position);
+  kakao.maps.event.addListener(marker,'click',()=>showPlace(p,marker));
+  const li=document.createElement('li');li.className='card';
+  const button=document.createElement('button');button.type='button';button.textContent=(i+1)+'. '+p.place_name;button.onclick=()=>showPlace(p,marker);
+  li.append(button);
+  [p.category_name,p.road_address_name||p.address_name,p.phone||'전화번호 정보 없음'].forEach(text=>{const el=document.createElement('p');el.textContent=text;li.append(el);});
+  li.append(placeLink(p));$('list').append(li);
+ });
+ if(data.length===1){map.setCenter(markers[0].getPosition());map.setLevel(4);}else if(data.length){map.setBounds(bounds);}
+}
+function search(page=1, query){
+ if(!places)return;
+ const token=++requestId;
+ const keyword=query||['경기도 광주시',$('area').value,$('food').value,$('keyword').value.trim()||'맛집'].filter(Boolean).join(' ');
+ clearResults();message('검색 중…');
+ const timer=setTimeout(()=>{if(token===requestId){requestId++;message('검색 응답이 지연됩니다. 네트워크를 확인하고 다시 검색하세요.');}},15000);
+ places.keywordSearch(keyword,(data,status,pagination)=>{
+  clearTimeout(timer);if(token!==requestId)return;
+  if(status===kakao.maps.services.Status.ZERO_RESULT){message('검색 결과가 없습니다. 지역이나 메뉴를 바꿔보세요.');return;}
+  if(status!==kakao.maps.services.Status.OK){message('검색 실패: 카카오맵 활성화, 도메인 등록, API 쿼터 및 네트워크를 확인하세요.');return;}
+  const filtered=data.filter(p=>isGwangju(p)&&p.category_group_code==='FD6');
+  render(filtered);message('현재 '+pagination.current+'페이지 · 광주시 음식점 '+filtered.length+'곳'+(!filtered.length?' · 다음 페이지 또는 다른 검색어를 확인하세요.':''));
+  const prev=document.createElement('button');prev.textContent='이전';prev.disabled=!pagination.hasPrevPage;prev.onclick=()=>search(pagination.current-1,keyword);
+  const label=document.createElement('span');label.textContent=pagination.current+' / '+pagination.last;
+  const next=document.createElement('button');next.textContent='다음';next.disabled=!pagination.hasNextPage;next.onclick=()=>search(pagination.current+1,keyword);
+  $('pages').append(prev,label,next);
+ },{category_group_code:'FD6',size:15,page,sort:kakao.maps.services.SortBy.ACCURACY});
+}
+function connect(key){
+ if(!key.trim()){message('JavaScript 키를 입력해 주세요.');return;}
+ if(location.protocol==='file:'){message('파일을 직접 열지 말고 안내된 로컬 서버 주소로 접속해 주세요.');return;}
+ $('connect').disabled=true;message('카카오 지도 연결 중…');
+ const script=document.createElement('script');
+ const timer=setTimeout(()=>message('지도 응답이 없습니다. 키·등록 도메인·카카오맵 사용 설정을 확인하고 새로고침하세요.'),15000);
+ script.src='https://dapi.kakao.com/v2/maps/sdk.js?appkey='+encodeURIComponent(key.trim())+'&libraries=services&autoload=false';
+ script.onerror=()=>{clearTimeout(timer);message('지도 SDK 로드 실패: 키·등록 도메인·네트워크를 확인하고 새로고침하세요.');};
+ script.onload=()=>{
+  if(!window.kakao?.maps){clearTimeout(timer);message('지도 SDK 초기화 실패. 설정을 확인하고 새로고침하세요.');return;}
+  kakao.maps.load(()=>{
+   clearTimeout(timer);
+   try{
+    $('map').replaceChildren();map=new kakao.maps.Map($('map'),{center:new kakao.maps.LatLng(37.4294,127.2551),level:8});
+    map.addControl(new kakao.maps.ZoomControl(),kakao.maps.ControlPosition.RIGHT);
+    places=new kakao.maps.services.Places();info=new kakao.maps.InfoWindow({removable:true});
+    $('search').disabled=false;$('setup').open=false;
+    new ResizeObserver(()=>{const center=map.getCenter();map.relayout();map.setCenter(center);}).observe($('map'));
+    search();
+   }catch(e){message('지도 초기화 오류. 브라우저 개발자 도구에서 오류를 확인하세요.');console.error(e);}
+  });
+ };
+ document.head.append(script);
+}
+$('searchForm').addEventListener('submit',e=>{e.preventDefault();search();});
+$('connect').addEventListener('click',()=>connect($('appkey').value));
+if(KAKAO_JAVASCRIPT_KEY)connect(KAKAO_JAVASCRIPT_KEY);
+</script>
+</body></html>
