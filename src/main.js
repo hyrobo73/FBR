@@ -285,7 +285,7 @@ function bindEvents() {
     try {
       const position = await getCurrentPosition();
       state.locationMarker = showCurrentPosition(state.map, position, state.locationMarker);
-      setStatus('현재 위치로 지도를 이동했어요.', 'notice');
+      setStatus(`현재 위치로 이동했어요. (정확도 약 ${Math.round(position.accuracy)}m)`, 'notice');
     } catch (error) {
       setStatus(error.message, 'error');
     } finally {
