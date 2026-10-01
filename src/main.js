@@ -283,13 +283,10 @@ function bindEvents() {
     elements.locationButton.disabled = true;
     setStatus('현재 위치를 확인하고 있어요…');
     try {
-      const position = await getCurrentPosition({
-        onUpdate: (currentPosition) => {
-          state.locationMarker = showCurrentPosition(state.map, currentPosition, state.locationMarker);
-          setStatus(`현재 위치를 보정하고 있어요. (정확도 약 ${Math.round(currentPosition.accuracy)}m)`, 'notice');
-        },
-      });
-      setStatus(`현재 위치로 이동했어요. (정확도 약 ${Math.round(position.accuracy)}m)`, 'notice');
+      const position = await getCurrentPosition();
+      state.locationMarker = showCurrentPosition(state.map, position, state.locationMarker);
+      const accuracyText = position.accuracy ? ` (정확도 약 ${Math.round(position.accuracy)}m)` : '';
+      setStatus(`현재 위치로 이동했어요.${accuracyText}`, 'notice');
     } catch (error) {
       setStatus(error.message, 'error');
     } finally {
