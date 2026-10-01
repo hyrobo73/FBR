@@ -49,7 +49,7 @@ button { color: inherit; }
 }
 .brand-mark::first-line { transform: rotate(5deg); }
 .home-button {
-  position: absolute; z-index: 12; top: 22px; right: 22px;
+  position: absolute; z-index: 12; top: 22px; right: 76px;
   display: inline-flex; align-items: center; gap: 7px;
   padding: 10px 14px 10px 12px; border: 1px solid rgb(255 255 255 / 80%); border-radius: 999px;
   color: var(--accent-dark); background: rgb(255 250 245 / 92%);
@@ -222,7 +222,7 @@ h1 { margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -.05em; }
   h1 { font-size: 19px; }
   .search-form { margin-block: 11px 15px; }
   .map-caption { top: 15px; left: 15px; }
-  .home-button { top: 15px; right: 15px; padding: 9px 12px 9px 10px; }
+  .home-button { top: 15px; right: 68px; padding: 9px 12px 9px 10px; }
   .map-category-tabs { top: 66px; left: 15px; right: 15px; gap: 2px; overflow-x: auto; }
   .map-category-tabs button { min-width: 56px; flex: 1 0 auto; padding-inline: 10px; }
   .mobile-list-button { display: block; position: absolute; z-index: 5; left: 50%; bottom: 24px; transform: translateX(-50%); padding: 12px 21px; border: 0; border-radius: 24px; color: white; background: var(--ink); box-shadow: 0 7px 22px rgb(30 28 22 / 25%); font-size: 13px; font-weight: 700; }
