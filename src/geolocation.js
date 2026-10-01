@@ -1,4 +1,4 @@
-export function getCurrentPosition({ targetAccuracy = 30, timeout = 10_000 } = {}) {
+export function getCurrentPosition({ targetAccuracy = 30, timeout = 10_000, onUpdate } = {}) {
   if (!navigator.geolocation) {
     return Promise.reject(new Error('이 브라우저는 위치 정보를 지원하지 않습니다.'));
   }
@@ -24,7 +24,10 @@ export function getCurrentPosition({ targetAccuracy = 30, timeout = 10_000 } = {
           accuracy,
         };
 
-        if (!bestPosition || candidate.accuracy < bestPosition.accuracy) bestPosition = candidate;
+        if (!bestPosition || candidate.accuracy < bestPosition.accuracy) {
+          bestPosition = candidate;
+          onUpdate?.(candidate);
+        }
         if (candidate.accuracy <= targetAccuracy) finish();
       },
       (positionError) => {
@@ -72,6 +75,6 @@ export function showCurrentPosition(map, position, previousIndicator) {
   });
 
   map.setLevel(4);
-  map.panTo(coords);
+  map.setCenter(coords);
   return { marker, accuracyCircle };
 }
