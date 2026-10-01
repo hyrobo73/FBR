@@ -6,6 +6,7 @@ const inputPath = resolve(root, '맛집정보', '광주시_맛집.csv');
 const outputPath = resolve(root, 'src', 'data', 'gwangju-restaurants.json');
 const envPath = resolve(root, '.env');
 const keywordEndpoint = 'https://dapi.kakao.com/v2/local/search/keyword.json';
+const addressEndpoint = 'https://dapi.kakao.com/v2/local/search/address.json';
 const CONCURRENCY = 4;
 
 function parseEnv(source) {
@@ -131,6 +132,52 @@ async function kakaoKeywordSearch(query, restApiKey, attempt = 1) {
   return response.json();
 }
 
+async function kakaoAddressSearch(query, restApiKey, attempt = 1) {
+  const url = new URL(addressEndpoint);
+  url.searchParams.set('query', query);
+
+  const response = await fetch(url, {
+    headers: { Authorization: `KakaoAK ${restApiKey}` },
+    signal: AbortSignal.timeout(15_000),
+  });
+
+  if ((response.status === 429 || response.status >= 500) && attempt < 3) {
+    await new Promise((resolve) => setTimeout(resolve, attempt * 500));
+    return kakaoAddressSearch(query, restApiKey, attempt + 1);
+  }
+  if (!response.ok) throw new Error(`Kakao 주소 API ${response.status}`);
+  return response.json();
+}
+
+function getRoadAddressQuery(address) {
+  const tokens = String(address).trim().split(/\s+/);
+  const roadIndex = tokens.findIndex((token) => /(?:로|길)$/.test(token));
+  if (roadIndex < 0 || !/^\d+(?:-\d+)?$/.test(tokens[roadIndex + 1] || '')) return address;
+  return tokens.slice(0, roadIndex + 2).join(' ');
+}
+
+async function geocodeRestaurantAddress(restaurant, restApiKey) {
+  const queries = [getRoadAddressQuery(restaurant.address), restaurant.address]
+    .filter((query, index, all) => query && all.indexOf(query) === index);
+
+  for (const query of queries) {
+    const result = await kakaoAddressSearch(query, restApiKey);
+    const document = result.documents.find((candidate) => {
+      const matchedAddress = candidate.road_address?.address_name || candidate.address?.address_name || '';
+      return /^(경기|경기도)\s+광주시(?:\s|$)/.test(matchedAddress);
+    });
+    if (!document) continue;
+    return {
+      lat: Number(document.y),
+      lng: Number(document.x),
+      coordinateStatus: 'address_geocoded',
+      geocodedAddress: document.road_address?.address_name || document.address?.address_name,
+    };
+  }
+
+  return null;
+}
+
 function selectCandidate(restaurant, documents) {
   const candidates = documents
     .filter((place) => /^(경기|경기도)\s+광주시(?:\s|$)/.test(place.road_address_name || place.address_name || ''))
@@ -180,10 +227,12 @@ async function matchRestaurant(restaurant, restApiKey) {
     };
   }
 
+  const coordinates = await geocodeRestaurantAddress(restaurant, restApiKey);
   return {
     unmatched: {
       ...restaurant,
       matchStatus: 'unmatched',
+      ...(coordinates || { coordinateStatus: 'not_found' }),
       reason: hadResults ? '광주시 내에서 음식점명이 일치하는 Kakao 장소를 찾지 못함' : 'Kakao 장소 검색 결과 없음',
     },
   };

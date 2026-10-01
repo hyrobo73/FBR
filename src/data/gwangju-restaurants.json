@@ -1,9 +1,9 @@
 {
   "source": "광주시_맛집.csv",
-  "generatedAt": "2026-10-01T02:05:17.912Z",
+  "generatedAt": "2026-10-01T03:23:34.337Z",
   "total": 67,
-  "matchedCount": 54,
-  "unmatchedCount": 13,
+  "matchedCount": 63,
+  "unmatchedCount": 4,
   "restaurants": [
     {
       "id": "csv-gwangju-1",
@@ -60,6 +60,24 @@
       "matchedAddress": "경기 광주시 곤지암읍 평촌길 38-44"
     },
     {
+      "id": "csv-gwangju-4",
+      "name": "낙원돈",
+      "rating": 4.9,
+      "address": "경기 광주시 양벌로 188 1층 102호, 103호",
+      "category": "한식",
+      "city": "gwangju",
+      "source": "csv",
+      "matchStatus": "matched",
+      "lat": 37.3799655415894,
+      "lng": 127.254993755673,
+      "kakaoId": "1032814168",
+      "kakaoName": "낙원돈",
+      "kakaoCategory": "음식점 > 한식 > 육류,고기",
+      "phone": "031-798-7770",
+      "url": "http://place.map.kakao.com/1032814168",
+      "matchedAddress": "경기 광주시 양벌로 188"
+    },
+    {
       "id": "csv-gwangju-5",
       "name": "장인의 맛 숯불갈비",
       "rating": 4.88,
@@ -76,6 +94,24 @@
       "phone": "031-764-9295",
       "url": "http://place.map.kakao.com/1256725456",
       "matchedAddress": "경기 광주시 퇴촌면 광동로52번길 2-26"
+    },
+    {
+      "id": "csv-gwangju-6",
+      "name": "정원갈비",
+      "rating": 4.86,
+      "address": "경기 광주시 경안천로 110 1~2층",
+      "category": "한식",
+      "city": "gwangju",
+      "source": "csv",
+      "matchStatus": "matched",
+      "lat": 37.415882166664005,
+      "lng": 127.27149845206624,
+      "kakaoId": "323531184",
+      "kakaoName": "정원갈비",
+      "kakaoCategory": "음식점 > 한식 > 육류,고기 > 갈비",
+      "phone": "031-767-0006",
+      "url": "http://place.map.kakao.com/323531184",
+      "matchedAddress": "경기 광주시 경안천로 110"
     },
     {
       "id": "csv-gwangju-7",
@@ -182,6 +218,24 @@
       "phone": "031-746-6553",
       "url": "http://place.map.kakao.com/688444838",
       "matchedAddress": "경기 광주시 남한산성면 남한산성로 765"
+    },
+    {
+      "id": "csv-gwangju-13",
+      "name": "경안동닭갈비",
+      "rating": 4.76,
+      "address": "경기 광주시 광주대로71번길 22 2층",
+      "category": "한식",
+      "city": "gwangju",
+      "source": "csv",
+      "matchStatus": "matched",
+      "lat": 37.4117533898182,
+      "lng": 127.258783850423,
+      "kakaoId": "973849805",
+      "kakaoName": "경안동닭갈비",
+      "kakaoCategory": "음식점 > 한식 > 육류,고기 > 닭요리",
+      "phone": "031-765-3800",
+      "url": "http://place.map.kakao.com/973849805",
+      "matchedAddress": "경기 광주시 광주대로71번길 22"
     },
     {
       "id": "csv-gwangju-14",
@@ -454,6 +508,24 @@
       "matchedAddress": "경기 광주시 남한산성면 남한산성로 204"
     },
     {
+      "id": "csv-gwangju-29",
+      "name": "라타케리아 타코의집 퇴촌",
+      "rating": 4.7,
+      "address": "경기 광주시 석둔길 4",
+      "category": "양식",
+      "city": "gwangju",
+      "source": "csv",
+      "matchStatus": "matched",
+      "lat": 37.477838959995,
+      "lng": 127.372761488229,
+      "kakaoId": "520153636",
+      "kakaoName": "라타케리아 타코의집 퇴촌",
+      "kakaoCategory": "음식점 > 양식 > 멕시칸,브라질",
+      "phone": "031-767-8976",
+      "url": "http://place.map.kakao.com/520153636",
+      "matchedAddress": "경기 광주시 퇴촌면 석둔길 4"
+    },
+    {
       "id": "csv-gwangju-30",
       "name": "곤지암리조트 카페테리아",
       "rating": 4.53,
@@ -544,6 +616,23 @@
       "matchedAddress": "경기 광주시 양벌로 207"
     },
     {
+      "id": "csv-gwangju-35",
+      "name": "신백옥 양꼬치",
+      "rating": 4.91,
+      "address": "경기 광주시 광주대로55번길 7 2층",
+      "category": "중식",
+      "city": "gwangju",
+      "source": "csv",
+      "matchStatus": "matched",
+      "lat": 37.411514305336,
+      "lng": 127.259338772258,
+      "kakaoId": "1025710604",
+      "kakaoName": "신백옥 양꼬치",
+      "kakaoCategory": "음식점 > 중식 > 양꼬치",
+      "url": "http://place.map.kakao.com/1025710604",
+      "matchedAddress": "경기 광주시 광주대로55번길 7"
+    },
+    {
       "id": "csv-gwangju-36",
       "name": "램쿡양꼬치",
       "rating": 4.91,
@@ -560,6 +649,24 @@
       "phone": "031-797-6336",
       "url": "http://place.map.kakao.com/381744157",
       "matchedAddress": "경기 광주시 경안안길 75-1"
+    },
+    {
+      "id": "csv-gwangju-37",
+      "name": "휴미락",
+      "rating": 4.9,
+      "address": "경기 광주시 경충대로 1314 대로변 1층",
+      "category": "중식",
+      "city": "gwangju",
+      "source": "csv",
+      "matchStatus": "matched",
+      "lat": 37.3914675551445,
+      "lng": 127.284787594158,
+      "kakaoId": "1858403612",
+      "kakaoName": "휴미락",
+      "kakaoCategory": "음식점 > 중식",
+      "phone": "0502-5552-1053",
+      "url": "http://place.map.kakao.com/1858403612",
+      "matchedAddress": "경기 광주시 초월읍 경충대로 1314"
     },
     {
       "id": "csv-gwangju-38",
@@ -594,6 +701,24 @@
       "kakaoCategory": "음식점 > 중식 > 중국요리",
       "url": "http://place.map.kakao.com/59433725",
       "matchedAddress": "경기 광주시 신현로 112"
+    },
+    {
+      "id": "csv-gwangju-40",
+      "name": "신백옥양꼬치",
+      "rating": 4.87,
+      "address": "경기 광주시 태봉로 8-4 2층",
+      "category": "중식",
+      "city": "gwangju",
+      "source": "csv",
+      "matchStatus": "matched",
+      "lat": 37.392491957296336,
+      "lng": 127.23111810540331,
+      "kakaoId": "290475123",
+      "kakaoName": "신백옥양꼬치",
+      "kakaoCategory": "음식점 > 중식 > 양꼬치",
+      "phone": "031-767-0282",
+      "url": "http://place.map.kakao.com/290475123",
+      "matchedAddress": "경기 광주시 태봉로 8-4"
     },
     {
       "id": "csv-gwangju-42",
@@ -829,6 +954,24 @@
       "matchedAddress": "경기 광주시 초월읍 현산로 201"
     },
     {
+      "id": "csv-gwangju-57",
+      "name": "스시로꼬 태전고산점",
+      "rating": 4.83,
+      "address": "경기 광주시 오포로 898 스시로꼬 태전고산점",
+      "category": "일식",
+      "city": "gwangju",
+      "source": "csv",
+      "matchStatus": "matched",
+      "lat": 37.37025867912506,
+      "lng": 127.2327782953306,
+      "kakaoId": "85881108",
+      "kakaoName": "스시로꼬 태전고산점",
+      "kakaoCategory": "음식점 > 일식 > 초밥,롤",
+      "phone": "031-798-2847",
+      "url": "http://place.map.kakao.com/85881108",
+      "matchedAddress": "경기 광주시 오포로 898"
+    },
+    {
       "id": "csv-gwangju-58",
       "name": "돈카춘 경기광주태전점",
       "rating": 4.82,
@@ -880,6 +1023,24 @@
       "phone": "031-766-5554",
       "url": "http://place.map.kakao.com/1694095072",
       "matchedAddress": "경기 광주시 회안대로 350-6"
+    },
+    {
+      "id": "csv-gwangju-61",
+      "name": "스시어왕 태전본점",
+      "rating": 4.71,
+      "address": "경기 광주시 고불로 62-5",
+      "category": "일식",
+      "city": "gwangju",
+      "source": "csv",
+      "matchStatus": "matched",
+      "lat": 37.39297474141345,
+      "lng": 127.23074014823835,
+      "kakaoId": "1689027459",
+      "kakaoName": "스시어왕 태전본점",
+      "kakaoCategory": "음식점 > 일식 > 초밥,롤",
+      "phone": "031-766-7626",
+      "url": "http://place.map.kakao.com/1689027459",
+      "matchedAddress": "경기 광주시 고불로 62-5"
     },
     {
       "id": "csv-gwangju-63",
@@ -972,90 +1133,6 @@
   ],
   "unmatchedRestaurants": [
     {
-      "id": "csv-gwangju-4",
-      "name": "낙원돈",
-      "rating": 4.9,
-      "address": "경기 광주시 양벌로 188 1층 102호, 103호",
-      "category": "한식",
-      "city": "gwangju",
-      "source": "csv",
-      "matchStatus": "matched",
-      "kakaoId": "1032814168",
-      "url": "http://place.map.kakao.com/1032814168"
-    },
-    {
-      "id": "csv-gwangju-6",
-      "name": "정원갈비",
-      "rating": 4.86,
-      "address": "경기 광주시 경안천로 110 1~2층",
-      "category": "한식",
-      "city": "gwangju",
-      "source": "csv",
-      "matchStatus": "matched",
-      "kakaoId": "323531184",
-      "url": "http://place.map.kakao.com/323531184"
-    },
-    {
-      "id": "csv-gwangju-13",
-      "name": "경안동닭갈비",
-      "rating": 4.76,
-      "address": "경기 광주시 광주대로71번길 22 2층",
-      "category": "한식",
-      "city": "gwangju",
-      "source": "csv",
-      "matchStatus": "matched",
-      "kakaoId": "973849805",
-      "url": "http://place.map.kakao.com/973849805"
-    },
-    {
-      "id": "csv-gwangju-29",
-      "name": "라타케리아 타코의집 퇴촌",
-      "rating": 4.7,
-      "address": "경기 광주시 석둔길 4",
-      "category": "양식",
-      "city": "gwangju",
-      "source": "csv",
-      "matchStatus": "matched",
-      "kakaoId": "520153636",
-      "url": "http://place.map.kakao.com/520153636"
-    },
-    {
-      "id": "csv-gwangju-35",
-      "name": "신백옥 양꼬치",
-      "rating": 4.91,
-      "address": "경기 광주시 광주대로55번길 7 2층",
-      "category": "중식",
-      "city": "gwangju",
-      "source": "csv",
-      "matchStatus": "matched",
-      "kakaoId": "1025710604",
-      "url": "http://place.map.kakao.com/1025710604"
-    },
-    {
-      "id": "csv-gwangju-37",
-      "name": "휴미락",
-      "rating": 4.9,
-      "address": "경기 광주시 경충대로 1314 대로변 1층",
-      "category": "중식",
-      "city": "gwangju",
-      "source": "csv",
-      "matchStatus": "matched",
-      "kakaoId": "1858403612",
-      "url": "http://place.map.kakao.com/1858403612"
-    },
-    {
-      "id": "csv-gwangju-40",
-      "name": "신백옥양꼬치",
-      "rating": 4.87,
-      "address": "경기 광주시 태봉로 8-4 2층",
-      "category": "중식",
-      "city": "gwangju",
-      "source": "csv",
-      "matchStatus": "matched",
-      "kakaoId": "290475123",
-      "url": "http://place.map.kakao.com/290475123"
-    },
-    {
       "id": "csv-gwangju-41",
       "name": "오화루중화요리",
       "rating": 4.85,
@@ -1063,8 +1140,12 @@
       "category": "중식",
       "city": "gwangju",
       "source": "csv",
-      "kakaoId": "1697869381",
-      "url": "http://place.map.kakao.com/1697869381"
+      "matchStatus": "unmatched",
+      "lat": 37.3812801897434,
+      "lng": 127.22767920466,
+      "coordinateStatus": "address_geocoded",
+      "geocodedAddress": "경기 광주시 태성로 98",
+      "reason": "Kakao 장소 검색 결과 없음"
     },
     {
       "id": "csv-gwangju-43",
@@ -1075,6 +1156,10 @@
       "city": "gwangju",
       "source": "csv",
       "matchStatus": "unmatched",
+      "lat": 37.3453018509931,
+      "lng": 127.212445436698,
+      "coordinateStatus": "address_geocoded",
+      "geocodedAddress": "경기 광주시 오포로 526",
       "reason": "Kakao 장소 검색 결과 없음"
     },
     {
@@ -1086,28 +1171,10 @@
       "city": "gwangju",
       "source": "csv",
       "matchStatus": "unmatched",
-      "reason": "Kakao 장소 검색 결과 없음"
-    },
-    {
-      "id": "csv-gwangju-57",
-      "name": "스시로꼬 오포태전고산점",
-      "rating": 4.83,
-      "address": "경기 광주시 오포로 898 스시로꼬 태전고산점",
-      "category": "일식",
-      "city": "gwangju",
-      "source": "csv",
-      "matchStatus": "unmatched",
-      "reason": "Kakao 장소 검색 결과 없음"
-    },
-    {
-      "id": "csv-gwangju-61",
-      "name": "스시어왕 광주태전점",
-      "rating": 4.71,
-      "address": "경기 광주시 고불로 62-5",
-      "category": "일식",
-      "city": "gwangju",
-      "source": "csv",
-      "matchStatus": "unmatched",
+      "lat": 37.3497835173658,
+      "lng": 127.169307657736,
+      "coordinateStatus": "address_geocoded",
+      "geocodedAddress": "경기 광주시 능평로 104",
       "reason": "Kakao 장소 검색 결과 없음"
     },
     {
@@ -1119,6 +1186,10 @@
       "city": "gwangju",
       "source": "csv",
       "matchStatus": "unmatched",
+      "lat": 37.350225685202,
+      "lng": 127.345707364903,
+      "coordinateStatus": "address_geocoded",
+      "geocodedAddress": "경기 광주시 곤지암읍 곤지암천로 326",
       "reason": "Kakao 장소 검색 결과 없음"
     }
   ]
