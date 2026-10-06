@@ -1,63 +1,66 @@
 <!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f6f1e7" />
-    <meta name="description" content="용인시와 경기도 광주시의 맛집을 지도로 탐색해 보세요." />
-    <title>경기도 맛집지도</title>
-    <link rel="stylesheet" href="/src/landing.css" />
-  </head>
-  <body>
-    <main class="landing">
-      <header class="landing-header">
-        <a class="wordmark" href="/" aria-label="경기도 맛집지도 홈">
-          <span class="wordmark-badge" aria-hidden="true">경기</span>
-          <span>GYEONGGI FOOD MAP</span>
-        </a>
-        <p class="header-note">좋은 한 끼를 찾는 가장 가까운 지도</p>
-      </header>
 
-      <section class="hero" aria-labelledby="page-title">
-        <p class="hero-kicker">오늘은 어디에서 먹을까요?</p>
-        <h1 id="page-title">경기도<br /><em>맛집지도</em></h1>
-        <p class="hero-copy">지역을 선택하면 한식·중식·일식·양식 맛집을 지도 위에서 바로 둘러볼 수 있어요.</p>
-      </section>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f6f1e7" />
+  <meta name="description" content="용인시와 경기도 광주시의 맛집을 지도로 탐색해 보세요." />
+  <title>경기도 맛집지도</title>
+  <link rel="stylesheet" href="./src/landing.css" />
+</head>
 
-      <section class="city-grid" aria-label="지역 선택">
-        <a class="city-card city-card--yongin" href="/yongin.html">
-          <div class="card-topline"><span>01</span><span>YONGIN</span></div>
-          <div class="card-main">
-            <p class="card-region">처인구 · 기흥구 · 수지구</p>
-            <h2>용인시</h2>
-            <p>도심의 든든한 한 끼부터 외곽의 여유로운 맛집까지 한눈에 살펴보세요.</p>
-          </div>
-          <div class="card-footer">
-            <div><strong>119</strong><span>지도 맛집</span></div>
-            <div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div>
-            <span class="card-arrow" aria-hidden="true">↗</span>
-          </div>
-        </a>
+<body>
+  <main class="landing">
+    <header class="landing-header">
+      <a class="wordmark" href="/" aria-label="경기도 맛집지도 홈">
+        <span class="wordmark-badge" aria-hidden="true">경기</span>
+        <span>GYEONGGI FOOD MAP</span>
+      </a>
+      <p class="header-note">좋은 한 끼를 찾는 가장 가까운 지도</p>
+    </header>
 
-        <a class="city-card city-card--gwangju" href="/gwangju.html">
-          <div class="card-topline"><span>02</span><span>GWANGJU</span></div>
-          <div class="card-main">
-            <p class="card-region">경안 · 오포 · 곤지암 · 퇴촌</p>
-            <h2>광주시</h2>
-            <p>남한산성에서 곤지암까지, 광주의 다채로운 맛을 지도로 발견해 보세요.</p>
-          </div>
-          <div class="card-footer">
-            <div><strong>66</strong><span>지도 맛집</span></div>
-            <div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div>
-            <span class="card-arrow" aria-hidden="true">↗</span>
-          </div>
-        </a>
-      </section>
+    <section class="hero" aria-labelledby="page-title">
+      <p class="hero-kicker">오늘은 어디에서 먹을까요?</p>
+      <h1 id="page-title">경기도<br /><em>맛집지도</em></h1>
+      <p class="hero-copy">지역을 선택하면 한식·중식·일식·양식 맛집을 지도 위에서 바로 둘러볼 수 있어요.</p>
+    </section>
 
-      <footer class="landing-footer">
-        <p><span aria-hidden="true">●</span> Kakao Maps 기반 위치 정보</p>
-        <p>지역별 맛집은 계속 확장됩니다.</p>
-      </footer>
-    </main>
-  </body>
+    <section class="city-grid" aria-label="지역 선택">
+      <a class="city-card city-card--yongin" href="./yongin.html">
+        <div class="card-topline"><span>01</span><span>YONGIN</span></div>
+        <div class="card-main">
+          <p class="card-region">처인구 · 기흥구 · 수지구</p>
+          <h2>용인시</h2>
+          <p>도심의 든든한 한 끼부터 외곽의 여유로운 맛집까지 한눈에 살펴보세요.</p>
+        </div>
+        <div class="card-footer">
+          <div><strong>119</strong><span>지도 맛집</span></div>
+          <div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div>
+          <span class="card-arrow" aria-hidden="true">↗</span>
+        </div>
+      </a>
+
+      <a class="city-card city-card--gwangju" href="./gwangju.html">
+        <div class="card-topline"><span>02</span><span>GWANGJU</span></div>
+        <div class="card-main">
+          <p class="card-region">경안 · 오포 · 곤지암 · 퇴촌</p>
+          <h2>광주시</h2>
+          <p>남한산성에서 곤지암까지, 광주의 다채로운 맛을 지도로 발견해 보세요.</p>
+        </div>
+        <div class="card-footer">
+          <div><strong>66</strong><span>지도 맛집</span></div>
+          <div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div>
+          <span class="card-arrow" aria-hidden="true">↗</span>
+        </div>
+      </a>
+    </section>
+
+    <footer class="landing-footer">
+      <p><span aria-hidden="true">●</span> Kakao Maps 기반 위치 정보</p>
+      <p>지역별 맛집은 계속 확장됩니다.</p>
+    </footer>
+  </main>
+</body>
+
 </html>

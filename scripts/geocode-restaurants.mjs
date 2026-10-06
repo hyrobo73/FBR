@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const root = process.cwd();
-const inputPath = resolve(root, '맛집정보', '용인시맛집_utf8.csv');
+const inputPath = resolve(root, '맛집정보', '용인시맛집.csv');
 const outputPath = resolve(root, 'src', 'data', 'yongin-restaurants.json');
 const envPath = resolve(root, '.env');
 const addressEndpoint = 'https://dapi.kakao.com/v2/local/search/address.json';
@@ -162,7 +162,7 @@ async function main() {
   const results = located.filter(Boolean).sort((a, b) => b.rating - a.rating);
 
   await writeFile(outputPath, `${JSON.stringify({
-    source: '용인시맛집_utf8.csv',
+    source: '용인시맛집.csv',
     generatedAt: new Date().toISOString(),
     total: restaurants.length,
     restaurants: results,

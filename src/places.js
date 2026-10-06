@@ -60,7 +60,7 @@ export function parseRestaurantCsv(source, city = 'yongin') {
 
 export async function loadRestaurantCsv(url) {
   const response = await fetch(url);
-  if (!response.ok) throw new Error('용인시맛집_utf8.csv를 불러오지 못했습니다.');
+  if (!response.ok) throw new Error('용인시맛집.csv를 불러오지 못했습니다.');
   const bytes = await response.arrayBuffer();
   return parseRestaurantCsv(new TextDecoder('utf-8').decode(bytes));
 }

@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const root = process.cwd();
-const inputPath = resolve(root, '맛집정보', '광주시_맛집.csv');
+const inputPath = resolve(root, '맛집정보', '광주시맛집.csv');
 const outputPath = resolve(root, 'src', 'data', 'gwangju-restaurants.json');
 const envPath = resolve(root, '.env');
 const keywordEndpoint = 'https://dapi.kakao.com/v2/local/search/keyword.json';
@@ -281,7 +281,7 @@ async function main() {
   const unmatched = results.flatMap((result) => result.unmatched ? [result.unmatched] : []);
 
   await writeFile(outputPath, `${JSON.stringify({
-    source: '광주시_맛집.csv',
+    source: '광주시맛집.csv',
     generatedAt: new Date().toISOString(),
     total: restaurants.length,
     matchedCount: matched.length,

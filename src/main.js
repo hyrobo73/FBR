@@ -1,5 +1,5 @@
 import './style.css';
-import yonginCsvUrl from '../맛집정보/용인시맛집_utf8.csv?url';
+import yonginCsvUrl from '../맛집정보/용인시맛집.csv?url';
 import yonginCoordinates from './data/yongin-restaurants.json';
 import gwangjuCoordinates from './data/gwangju-restaurants.json';
 import { createConfiguredMap, fitMapToPlaces, loadKakaoMaps, YONGIN_CONFIG } from './map.js';
@@ -11,13 +11,13 @@ const cityKey = document.documentElement.dataset.city || 'yongin';
 const appConfig = cityKey === 'gwangju'
   ? {
       cityName: '광주시',
-      source: '광주시_맛집.csv',
+      source: '광주시맛집.csv',
       coordinates: gwangjuCoordinates,
       map: { center: { lat: 37.4095, lng: 127.2550 }, level: 9 },
     }
   : {
       cityName: '용인시',
-      source: '용인시맛집_utf8.csv',
+      source: '용인시맛집.csv',
       coordinates: yonginCoordinates,
       map: YONGIN_CONFIG,
     };
