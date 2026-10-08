@@ -168,6 +168,10 @@ async function openPlaceDialog(place) {
 
 function handlePlaceSelect(place) {
   selectListItem(place);
+  if (window.matchMedia('(max-width: 760px)').matches) {
+    openPlaceDialog(place);
+    return;
+  }
   openKakaoPlacePopup(place);
 }
 

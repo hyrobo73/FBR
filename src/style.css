@@ -261,6 +261,10 @@ h1 { margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -.05em; }
   .mobile-list-button { display: block; position: absolute; z-index: 5; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom)); transform: translateX(-50%); min-height: 46px; padding: 12px 21px; border: 0; border-radius: 24px; color: white; background: var(--ink); box-shadow: 0 7px 22px rgb(30 28 22 / 25%); font-size: 13px; font-weight: 700; cursor: pointer; }
   .sidebar.is-open + .map-shell .mobile-list-button { display: none; }
   .place-dialog { padding: 24px 21px; border-radius: 20px; }
+  .place-dialog[open] { position: fixed; inset: 0; box-sizing: border-box; width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: max(18px, env(safe-area-inset-top)) 21px calc(24px + env(safe-area-inset-bottom)); border-radius: 0; overflow-y: auto; }
+  .place-dialog::backdrop { background: #fffdf9; }
+  .place-dialog .dialog-close { position: static; display: inline-flex; align-items: center; justify-content: center; width: auto; min-height: 42px; margin: 0 0 28px -8px; padding: 0 12px; border-radius: 999px; font-size: 0; font-weight: 700; }
+  .place-dialog .dialog-close::after { content: '← 뒤로가기'; font-size: 14px; }
 }
 
 @media (max-width: 380px) {
