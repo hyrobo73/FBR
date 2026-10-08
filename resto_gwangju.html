@@ -11,14 +11,17 @@
 
 <body>
   <div id="app">
-    <aside class="sidebar" aria-label="광주 맛집 검색 및 목록">
-      <header class="brand">
-        <div class="brand-mark" aria-hidden="true">광주</div>
-        <div>
-          <p class="eyebrow">GWANGJU FOOD MAP</p>
-          <h1>광주 한입 지도</h1>
-        </div>
-      </header>
+    <aside id="restaurant-panel" class="sidebar" aria-label="광주 맛집 검색 및 목록">
+      <div class="mobile-panel-heading">
+        <header class="brand">
+          <div class="brand-mark" aria-hidden="true">광주</div>
+          <div>
+            <p class="eyebrow">GWANGJU FOOD MAP</p>
+            <h1>광주 한입 지도</h1>
+          </div>
+        </header>
+        <button id="mobile-list-close" class="mobile-panel-close" type="button" aria-controls="restaurant-panel" aria-expanded="false">지도 보기 <span aria-hidden="true">↓</span></button>
+      </div>
       <p class="intro">경기도 광주의 좋은 한 끼를 취향에 따라 지도 위에서 발견해 보세요.</p>
       <form id="search-form" class="search-form">
         <label class="sr-only" for="search-input">맛집 검색</label>
@@ -56,10 +59,13 @@
         <button type="button" data-category="중식" aria-pressed="false"><span aria-hidden="true">🏮</span>중식</button>
         <button type="button" data-category="일식" aria-pressed="false"><span aria-hidden="true">🍣</span>일식</button>
         <button type="button" data-category="양식" aria-pressed="false"><span aria-hidden="true">🥖</span>양식</button>
+        <button type="button" data-category="간식" aria-pressed="false"><span aria-hidden="true">🍰</span>간식</button>
+        <button type="button" data-category="분식" aria-pressed="false"><span aria-hidden="true">🍢</span>분식</button>
+        <button type="button" data-category="아시아음식" aria-pressed="false"><span aria-hidden="true">🥘</span>아시아음식</button>
       </nav>
       <div class="theme-props" aria-hidden="true"><span class="prop-one"></span><span class="prop-two"></span><span
           class="prop-three"></span></div>
-      <button id="mobile-list-button" class="mobile-list-button" type="button">목록 보기</button>
+      <button id="mobile-list-button" class="mobile-list-button" type="button" aria-controls="restaurant-panel" aria-expanded="false">목록 보기</button>
     </main>
   </div>
 

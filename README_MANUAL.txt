@@ -23,7 +23,7 @@ Kakao Maps JavaScript API를 사용합니다.
 index.html
   지역 선택 홈 화면입니다.
 
-yongin.html / gwangju.html
+resto_yongin.html / resto_gwangju.html
   각 지역 지도 화면의 HTML 진입점입니다. 도시 식별자와 접근성 문구,
   화면 요소를 정의하며 공통 로직은 src/main.js에서 실행합니다.
 
@@ -40,13 +40,13 @@ src/
     브라우저 현재 위치 요청과 지도상의 위치 표시를 담당합니다.
   style.css / landing.css
     지도 화면과 홈 화면의 스타일 및 반응형 레이아웃입니다.
-  data/yongin-restaurants.json
+  data/favorite_restaurants_yongin.json
     용인시의 좌표가 포함된 음식점 데이터입니다.
-  data/gwangju-restaurants.json
+  data/favorite_restaurants_gwangju.json
     광주시의 매칭된 음식점 좌표와 미매칭 항목을 담은 데이터입니다.
 
 맛집정보/
-  용인시맛집.csv, 광주시맛집.csv
+  favorite_restaurants_yongin.csv, favorite_restaurants_gwangju.csv
     저장소에 현재 포함된 원본 데이터 파일입니다.
 
 scripts/
@@ -88,7 +88,7 @@ REST API 키는 좌표 데이터 생성 스크립트에서 사용합니다.
   npm run dev
 
 터미널에 표시된 주소(기본값 http://localhost:5173)를 브라우저에서 엽니다.
-홈 화면에서 지역을 선택합니다. 직접 열려면 /yongin.html 또는 /gwangju.html을
+홈 화면에서 지역을 선택합니다. 직접 열려면 /resto_yongin.html 또는 /resto_gwangju.html을
 사용합니다. .env를 변경한 뒤에는 개발 서버를 다시 시작하세요.
 
 
@@ -121,14 +121,14 @@ REST API 키는 좌표 데이터 생성 스크립트에서 사용합니다.
 
 첫 명령은 Kakao 키워드 및 주소 검색을 이용해 용인 JSON을 새로 씁니다.
 두 번째 명령은 광주 장소 후보를 이름과 주소로 비교하고 결과를
-src/data/gwangju-restaurants.json에 기록합니다. 성공·미매칭 건수는 터미널에
+src/data/favorite_restaurants_gwangju.json에 기록합니다. 성공·미매칭 건수는 터미널에
 출력됩니다. API 호출량과 실행 시간은 데이터 건수 및 Kakao API 제한에 따라 달라집니다.
 
-주의: 현재 맛집정보 디렉터리의 파일은 용인시맛집.csv와 광주시맛집.csv입니다.
-앱과 좌표 생성 스크립트는 각각 용인시맛집.csv와 광주시맛집.csv를 사용합니다.
+주의: 앱과 좌표 생성 스크립트는 각각 favorite_restaurants_yongin.csv와
+favorite_restaurants_gwangju.csv를 사용합니다.
 
-앱은 내장 좌표 JSON의 source 값이 해당 도시 설정과 일치하고 음식점 목록이 있을 때
-JSON 데이터를 우선 사용합니다. 용인은 JSON을 사용할 수 없으면 CSV를 읽고 브라우저에서
+앱은 내장 좌표 JSON에 음식점 목록이 있으면 JSON 데이터를 우선 사용합니다. 용인은
+JSON을 사용할 수 없으면 CSV를 읽고 브라우저에서
 주소를 변환해 localStorage에 캐시합니다. 광주는 유효한 좌표 JSON이 없으면 안내 오류를
 표시하므로 좌표 JSON이 필요합니다. 좌표를 새로 만들면 변경 내용을 반영하도록 페이지를
 새로고침하세요.
@@ -147,10 +147,10 @@ npm run preview
   먼저 생성한 dist/ 결과를 로컬에서 확인합니다.
 
 npm run data:geocode
-  용인 CSV를 조회해 src/data/yongin-restaurants.json을 생성합니다.
+  용인 CSV를 조회해 src/data/favorite_restaurants_yongin.json을 생성합니다.
 
 npm run data:geocode:gwangju
-  광주 CSV를 매칭해 src/data/gwangju-restaurants.json을 생성합니다.
+  광주 CSV를 매칭해 src/data/favorite_restaurants_gwangju.json을 생성합니다.
 
 
 7. 유지보수 위치

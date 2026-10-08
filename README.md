@@ -23,10 +23,13 @@ npm run dev
 
 ## 데이터 동작
 
-- 용인시: UTF-8 형식의 `맛집정보/용인시맛집.csv`에서 카테고리·음식점명·평점·주소를 읽습니다. 주소 안의 쉼표와 CSV 인용부호도 처리합니다.
-- `npm run data:geocode`를 한 번 실행하면 CSV를 기준으로 좌표와 Kakao 장소 ID가 포함된 `src/data/yongin-restaurants.json`을 생성합니다. 앱은 이 JSON을 즉시 읽으므로 실행할 때 주소 API를 다시 호출하지 않습니다.
+- 용인시: `맛집정보/favorite_restaurants_yongin.csv`에서 음식점 정보를 읽습니다. CSV에 포함된 좌표가 있으면 그대로 사용합니다.
+- `npm run data:geocode`를 한 번 실행하면 CSV를 기준으로 좌표와 Kakao 장소 ID가 포함된 `src/data/favorite_restaurants_yongin.json`을 생성합니다. 앱은 이 JSON을 즉시 읽으므로 실행할 때 주소 API를 다시 호출하지 않습니다.
+- 광주 데이터는 `src/data/favorite_restaurants_gwangju.json`에서 읽으며, `npm run data:geocode:gwangju`로 갱신할 수 있습니다.
 - 좌표 JSON을 아직 만들지 않은 경우에는 브라우저에서 주소를 변환하고 `localStorage`에 캐시합니다. 첫 방문은 느릴 수 있으므로 배포 전 좌표 JSON 생성을 권장합니다.
-- 지도 위의 전체·한식·중식·일식·양식 탭으로 파일의 카테고리를 필터링합니다.
+- 지도 위의 전체·한식·중식·일식·양식·간식·분식·아시아음식 탭으로 파일의 카테고리를 필터링합니다.
 - 맛집 목록을 클릭하면 해당 음식점의 `place.map.kakao.com` 상세 페이지를 별도 팝업 창으로 엽니다.
 
 데이터 파일에는 `[한식]`처럼 대괄호로 카테고리를 구분할 수 있습니다.
+
+프로젝트 구조, 데이터 갱신, 실행 및 배포 방법은 [README_MANUAL.md](./README_MANUAL.md)를 참고하세요.

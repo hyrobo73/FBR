@@ -1,7 +1,7 @@
 import './style.css';
-import yonginCsvUrl from '../맛집정보/용인시맛집.csv?url';
-import yonginCoordinates from './data/yongin-restaurants.json';
-import gwangjuCoordinates from './data/gwangju-restaurants.json';
+import yonginCsvUrl from '../맛집정보/favorite_restaurants_yongin.csv?url';
+import yonginCoordinates from './data/favorite_restaurants_yongin.json';
+import gwangjuCoordinates from './data/favorite_restaurants_gwangju.json';
 import { createConfiguredMap, fitMapToPlaces, loadKakaoMaps, YONGIN_CONFIG } from './map.js';
 import { findPlaceDetails, loadRestaurantCsv, locateRestaurants } from './places.js';
 import { createMarkerManager } from './markers.js';
@@ -11,13 +11,13 @@ const cityKey = document.documentElement.dataset.city || 'yongin';
 const appConfig = cityKey === 'gwangju'
   ? {
       cityName: '광주시',
-      source: '광주시맛집.csv',
+      source: 'favorite_restaurants_gwangju.csv',
       coordinates: gwangjuCoordinates,
       map: { center: { lat: 37.4095, lng: 127.2550 }, level: 9 },
     }
   : {
       cityName: '용인시',
-      source: '용인시맛집.csv',
+      source: 'favorite_restaurants_yongin.csv',
       coordinates: yonginCoordinates,
       map: YONGIN_CONFIG,
     };
@@ -32,6 +32,7 @@ const elements = {
   searchInput: document.querySelector('#search-input'),
   locationButton: document.querySelector('#location-button'),
   mobileListButton: document.querySelector('#mobile-list-button'),
+  mobileListClose: document.querySelector('#mobile-list-close'),
   sidebar: document.querySelector('.sidebar'),
   mapShell: document.querySelector('.map-shell'),
   categoryTabs: [...document.querySelectorAll('#category-tabs button')],
@@ -72,6 +73,12 @@ function setStatus(message = '', type = '') {
   elements.status.hidden = !message;
 }
 
+function setMobileListOpen(isOpen) {
+  elements.sidebar.classList.toggle('is-open', isOpen);
+  elements.mobileListButton.setAttribute('aria-expanded', String(isOpen));
+  elements.mobileListClose.setAttribute('aria-expanded', String(isOpen));
+}
+
 function selectListItem(place) {
   const item = elements.list.querySelector(`[data-id="${CSS.escape(place.id)}"]`);
   if (!item) return;
@@ -100,7 +107,7 @@ function createListItem(place, index) {
   item.querySelector('button').addEventListener('click', () => {
     state.markerManager.open(place);
     handlePlaceSelect(place);
-    if (window.matchMedia('(max-width: 760px)').matches) elements.sidebar.classList.remove('is-open');
+    if (window.matchMedia('(max-width: 760px)').matches) setMobileListOpen(false);
   });
   return item;
 }
@@ -206,7 +213,7 @@ async function openKakaoPlacePopup(place) {
 }
 
 async function loadRestaurants() {
-  if (appConfig.coordinates.source === appConfig.source && appConfig.coordinates.restaurants.length) {
+  if (appConfig.coordinates.restaurants?.length) {
     state.allPlaces = appConfig.coordinates.restaurants;
     applyFilters();
     const unmatchedCount = appConfig.coordinates.unmatchedRestaurants?.length ?? appConfig.coordinates.unmatchedCount;
@@ -221,6 +228,11 @@ async function loadRestaurants() {
   }
 
   const restaurants = await loadRestaurantCsv(yonginCsvUrl);
+  if (restaurants.length && restaurants.every((place) => Number.isFinite(place.lat) && Number.isFinite(place.lng))) {
+    state.allPlaces = restaurants;
+    applyFilters();
+    return;
+  }
   const cacheKey = 'yongin-utf8-csv-restaurant-coordinates-v3';
   let cached = [];
   try {
@@ -294,7 +306,8 @@ function bindEvents() {
     }
   });
 
-  elements.mobileListButton.addEventListener('click', () => elements.sidebar.classList.toggle('is-open'));
+  elements.mobileListButton.addEventListener('click', () => setMobileListOpen(true));
+  elements.mobileListClose.addEventListener('click', () => setMobileListOpen(false));
   elements.dialogClose.addEventListener('click', () => elements.dialog.close());
   elements.dialog.addEventListener('click', (event) => {
     if (event.target === elements.dialog) elements.dialog.close();
