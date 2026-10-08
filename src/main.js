@@ -110,7 +110,7 @@ function createListItem(place, index) {
   item.querySelector('button').addEventListener('click', () => {
     state.markerManager.open(place);
     handlePlaceSelect(place);
-    if (window.matchMedia('(max-width: 760px)').matches) setMobileListOpen(false);
+    if (window.matchMedia('(max-width: 760px), (pointer: coarse) and (max-width: 1366px)').matches) setMobileListOpen(false);
   });
   return item;
 }
@@ -173,7 +173,7 @@ async function openPlaceDialog(place) {
 
 function handlePlaceSelect(place) {
   selectListItem(place);
-  if (window.matchMedia('(max-width: 760px)').matches) {
+  if (window.matchMedia('(max-width: 760px), (pointer: coarse) and (max-width: 1366px)').matches) {
     openPlaceDialog(place);
     return;
   }

@@ -242,7 +242,7 @@ h1 { margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -.05em; }
   .sidebar { padding-inline: 20px; }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 760px), (pointer: coarse) and (max-width: 1366px) {
   #app { display: block; height: 100vh; height: 100dvh; }
   .map-shell { width: 100%; height: 100vh; height: 100dvh; min-height: 360px; }
   .sidebar { position: fixed; inset: auto 0 0; height: min(78vh, 680px); height: min(78dvh, 680px); max-height: calc(100dvh - 12px); padding: 14px 18px calc(12px + env(safe-area-inset-bottom)); border: 0; border-radius: 22px 22px 0 0; transform: translateY(calc(100% + 12px)); transition: transform .28s ease; box-shadow: 0 -12px 40px rgb(42 37 28 / 18%); will-change: transform; }
@@ -285,4 +285,4 @@ h1 { margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -.05em; }
 .review-back { justify-self: start; padding: 8px 12px; border: 0; border-radius: 999px; background: #f3efe8; color: #625b55; font-weight: 700; cursor: pointer; }
 .review-view iframe { width: 100%; height: 100%; min-height: 0; border: 1px solid #e7e1d8; border-radius: 8px; background: white; }
 .review-external { justify-self: end; color: #746b5e; font-size: 12px; }
-@media (max-width: 760px) { .place-dialog.showing-reviews { width: 100%; height: 100%; max-height: none; padding: max(12px, env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom)); } }
+@media (max-width: 760px), (pointer: coarse) and (max-width: 1366px) { .place-dialog.showing-reviews { width: 100%; height: 100%; max-height: none; padding: max(12px, env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom)); } }
