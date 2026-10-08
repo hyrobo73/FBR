@@ -36,6 +36,7 @@ const elements = {
   sidebar: document.querySelector('.sidebar'),
   mapShell: document.querySelector('.map-shell'),
   categoryTabs: [...document.querySelectorAll('#category-tabs button')],
+  mapTypeButtons: [...document.querySelectorAll('#map-type-buttons button')],
   dialog: document.querySelector('#place-dialog'),
   dialogClose: document.querySelector('#dialog-close'),
   dialogCategory: document.querySelector('#dialog-category'),
@@ -333,6 +334,15 @@ function bindEvents() {
 
   elements.mobileListButton.addEventListener('click', () => setMobileListOpen(true));
   elements.mobileListClose.addEventListener('click', () => setMobileListOpen(false));
+  elements.mapTypeButtons.forEach((button) => button.addEventListener('click', () => {
+    const mapType = button.dataset.mapType === 'HYBRID' ? kakao.maps.MapTypeId.HYBRID : kakao.maps.MapTypeId.ROADMAP;
+    state.map.setMapTypeId(mapType);
+    elements.mapTypeButtons.forEach((candidate) => {
+      const active = candidate === button;
+      candidate.classList.toggle('is-active', active);
+      candidate.setAttribute('aria-pressed', String(active));
+    });
+  }));
   elements.dialogClose.addEventListener('click', () => elements.dialog.close());
   elements.dialogLink.addEventListener('click', showReviews);
   elements.reviewBack.addEventListener('click', () => {
