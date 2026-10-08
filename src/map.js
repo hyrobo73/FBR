@@ -34,5 +34,10 @@ export function fitMapToPlaces(map, places) {
   if (!places.length) return;
   const bounds = new kakao.maps.LatLngBounds();
   places.forEach(({ lat, lng }) => bounds.extend(new kakao.maps.LatLng(lat, lng)));
-  map.setBounds(bounds, 70, 70, 70, 70);
+  // On touch tablets the responsive map container changes size as the page
+  // settles. Relayout first so Kakao computes bounds from the actual viewport.
+  requestAnimationFrame(() => {
+    map.relayout();
+    map.setBounds(bounds, 70, 70, 70, 70);
+  });
 }
