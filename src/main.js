@@ -320,7 +320,7 @@ function bindEvents() {
 
 async function initialize() {
   try {
-    await loadKakaoMaps(import.meta.env.VITE_KAKAO_MAP_API_KEY);
+    await loadKakaoMaps(import.meta.env.KAKAO_MAP_API_KEY);
     state.map = createConfiguredMap(elements.map, appConfig.map);
     state.markerManager = createMarkerManager(state.map, handlePlaceSelect);
     bindEvents();

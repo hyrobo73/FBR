@@ -4,7 +4,7 @@ export const YONGIN_CONFIG = {
 };
 
 export function loadKakaoMaps(apiKey) {
-  if (!apiKey) return Promise.reject(new Error('VITE_KAKAO_MAP_API_KEY가 설정되지 않았습니다.'));
+  if (!apiKey) return Promise.reject(new Error('KAKAO_MAP_API_KEY가 설정되지 않았습니다.'));
   if (window.kakao?.maps) return new Promise((resolve) => window.kakao.maps.load(resolve));
 
   return new Promise((resolve, reject) => {
