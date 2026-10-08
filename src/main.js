@@ -126,10 +126,16 @@ function renderPlaces(places, { fit = true } = {}) {
 }
 
 function applyFilters() {
-  const query = state.query.toLocaleLowerCase('ko-KR');
+  const normalizeSearchText = (value = '') => value
+    .normalize('NFKC')
+    .toLocaleLowerCase('ko-KR')
+    .replace(/[\s\p{P}\p{S}]/gu, '');
+  const queryTokens = state.query.trim().split(/\s+/).filter(Boolean).map(normalizeSearchText);
   const places = state.allPlaces.filter((place) => {
     const categoryMatches = state.category === '전체' || place.category === state.category;
-    const queryMatches = !query || `${place.name} ${place.address}`.toLocaleLowerCase('ko-KR').includes(query);
+    const name = normalizeSearchText(place.name);
+    const address = normalizeSearchText(place.address);
+    const queryMatches = queryTokens.every((token) => !token || name.includes(token) || address.includes(token));
     return categoryMatches && queryMatches;
   });
   elements.resultLabel.textContent = state.query ? `${state.category} · “${state.query}”` : `${state.category} 맛집`;

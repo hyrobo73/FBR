@@ -18,10 +18,14 @@ export function createMarkerManager(map, onSelect) {
     const entry = markers.get(place.id);
     if (!entry) return;
     const rating = place.rating ? `<span class="info-rating">★ ${place.rating.toFixed(2)}</span>` : '';
-    const content = `<div class="map-info"><strong>${escapeHtml(place.name)}</strong>${rating}<p>${escapeHtml(place.address)}</p></div>`;
+    const reviewCount = Number.isFinite(Number(place.reviewCount)) ? Number(place.reviewCount).toLocaleString('ko-KR') : '-';
+    const category = escapeHtml(place.category || '카테고리 미분류');
+    const content = `<div class="map-info"><strong>${escapeHtml(place.name)}</strong>${rating}<div class="map-info-meta"><span>${category}</span><span>리뷰 ${reviewCount}개</span></div><p>${escapeHtml(place.address)}</p></div>`;
     infoWindow.setContent(content);
     infoWindow.open(map, entry.marker);
-    map.panTo(entry.marker.getPosition());
+    const position = entry.marker.getPosition();
+    map.setLevel(3, { anchor: position });
+    map.panTo(position);
   }
 
   function render(places) {
