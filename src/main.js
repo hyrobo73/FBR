@@ -46,6 +46,9 @@ const elements = {
   dialogPhoneRow: document.querySelector('#dialog-phone-row'),
   dialogHelp: document.querySelector('#dialog-help'),
   dialogLink: document.querySelector('#dialog-kakao-link'),
+  reviewFrame: document.querySelector('#review-frame'),
+  reviewBack: document.querySelector('#review-back'),
+  reviewExternal: document.querySelector('.review-external'),
 };
 
 const state = {
@@ -134,6 +137,8 @@ function applyFilters() {
 }
 
 function updateDialog(place) {
+  elements.dialog.classList.remove('showing-reviews');
+  elements.reviewFrame.removeAttribute('src');
   elements.dialog.dataset.category = place.category || '전체';
   elements.dialogCategory.textContent = place.category || '음식점';
   elements.dialogName.textContent = place.name;
@@ -179,6 +184,16 @@ function getKakaoPlaceUrl(place) {
   if (place.kakaoId) return `https://place.map.kakao.com/${encodeURIComponent(place.kakaoId)}`;
   if (place.url?.includes('place.map.kakao.com')) return place.url.replace(/^http:/, 'https:');
   return '';
+}
+
+function showReviews(event) {
+  event.preventDefault();
+  const place = state.allPlaces.find((item) => item.id === state.selectedPlaceId);
+  if (!place) return;
+  const reviewUrl = getKakaoPlaceUrl(place) || elements.dialogLink.href;
+  elements.reviewFrame.src = reviewUrl;
+  elements.reviewExternal.href = reviewUrl;
+  elements.dialog.classList.add('showing-reviews');
 }
 
 async function openKakaoPlacePopup(place) {
@@ -313,6 +328,11 @@ function bindEvents() {
   elements.mobileListButton.addEventListener('click', () => setMobileListOpen(true));
   elements.mobileListClose.addEventListener('click', () => setMobileListOpen(false));
   elements.dialogClose.addEventListener('click', () => elements.dialog.close());
+  elements.dialogLink.addEventListener('click', showReviews);
+  elements.reviewBack.addEventListener('click', () => {
+    elements.reviewFrame.removeAttribute('src');
+    elements.dialog.classList.remove('showing-reviews');
+  });
   elements.dialog.addEventListener('click', (event) => {
     if (event.target === elements.dialog) elements.dialog.close();
   });
