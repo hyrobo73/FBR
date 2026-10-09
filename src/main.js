@@ -65,6 +65,8 @@ const state = {
   popupRequestId: 0,
 };
 
+let mapLocationButton;
+
 function escapeHtml(value = '') {
   const node = document.createElement('div');
   node.textContent = value;
@@ -317,8 +319,9 @@ function bindEvents() {
     applyFilters();
   });
 
-  elements.locationButton.addEventListener('click', async () => {
+  const locateCurrentPosition = async () => {
     elements.locationButton.disabled = true;
+    if (mapLocationButton) mapLocationButton.disabled = true;
     setStatus('현재 위치를 확인하고 있어요…');
     try {
       const position = await getCurrentPosition();
@@ -329,8 +332,11 @@ function bindEvents() {
       setStatus(error.message, 'error');
     } finally {
       elements.locationButton.disabled = false;
+      if (mapLocationButton) mapLocationButton.disabled = false;
     }
-  });
+  };
+  elements.locationButton.addEventListener('click', locateCurrentPosition);
+  mapLocationButton?.addEventListener('click', locateCurrentPosition);
 
   elements.mobileListButton.addEventListener('click', () => setMobileListOpen(true));
   elements.mobileListClose.addEventListener('click', () => setMobileListOpen(false));
@@ -362,6 +368,13 @@ async function initialize() {
   try {
     await loadKakaoMaps(import.meta.env.VITE_KAKAO_MAP_API_KEY);
     state.map = createConfiguredMap(elements.map, appConfig.map);
+    mapLocationButton = document.createElement('button');
+    mapLocationButton.type = 'button';
+    mapLocationButton.className = 'map-location-control';
+    mapLocationButton.title = '현재 위치로 이동';
+    mapLocationButton.setAttribute('aria-label', '현재 위치로 이동');
+    mapLocationButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6.5"></circle><circle cx="12" cy="12" r="2"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22"></path></svg>';
+    state.map.addControl(mapLocationButton, kakao.maps.ControlPosition.BOTTOMRIGHT);
     state.markerManager = createMarkerManager(state.map, handlePlaceSelect);
     bindEvents();
     await loadRestaurants();
