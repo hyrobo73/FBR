@@ -66,6 +66,7 @@ const state = {
 };
 
 let mapLocationButton;
+let mapZoomSlider;
 
 function escapeHtml(value = '') {
   const node = document.createElement('div');
@@ -337,6 +338,12 @@ function bindEvents() {
   };
   elements.locationButton.addEventListener('click', locateCurrentPosition);
   mapLocationButton?.addEventListener('click', locateCurrentPosition);
+  elements.mapShell.querySelector('[data-zoom-in]').addEventListener('click', () => state.map.setLevel(Math.max(1, state.map.getLevel() - 1)));
+  elements.mapShell.querySelector('[data-zoom-out]').addEventListener('click', () => state.map.setLevel(Math.min(14, state.map.getLevel() + 1)));
+  mapZoomSlider.addEventListener('input', () => state.map.setLevel(Number(mapZoomSlider.value)));
+  kakao.maps.event.addListener(state.map, 'zoom_changed', () => {
+    mapZoomSlider.value = String(state.map.getLevel());
+  });
 
   elements.mobileListButton.addEventListener('click', () => setMobileListOpen(true));
   elements.mobileListClose.addEventListener('click', () => setMobileListOpen(false));
@@ -368,13 +375,19 @@ async function initialize() {
   try {
     await loadKakaoMaps(import.meta.env.VITE_KAKAO_MAP_API_KEY);
     state.map = createConfiguredMap(elements.map, appConfig.map);
+    const mapControlStack = document.createElement('div');
+    mapControlStack.className = 'map-control-stack';
+    mapControlStack.innerHTML = '<div class="map-zoom-control" role="group" aria-label="지도 축척 조절"><button type="button" data-zoom-in aria-label="지도 확대">+</button><input type="range" min="1" max="14" step="1" aria-label="지도 축척" /><button type="button" data-zoom-out aria-label="지도 축소">−</button></div>';
     mapLocationButton = document.createElement('button');
     mapLocationButton.type = 'button';
     mapLocationButton.className = 'map-location-control';
     mapLocationButton.title = '현재 위치로 이동';
     mapLocationButton.setAttribute('aria-label', '현재 위치로 이동');
     mapLocationButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6.5"></circle><circle cx="12" cy="12" r="2"></circle><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22"></path></svg>';
-    state.map.addControl(mapLocationButton, kakao.maps.ControlPosition.BOTTOMRIGHT);
+    mapControlStack.append(mapLocationButton);
+    elements.mapShell.append(mapControlStack);
+    mapZoomSlider = mapControlStack.querySelector('input[type="range"]');
+    mapZoomSlider.value = String(appConfig.map.level);
     state.markerManager = createMarkerManager(state.map, handlePlaceSelect);
     bindEvents();
     await loadRestaurants();

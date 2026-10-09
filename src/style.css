@@ -122,6 +122,17 @@ h1 { margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -.05em; }
 .map-location-control:focus-visible { outline: 2px solid #2878d0; outline-offset: 2px; }
 .map-location-control:disabled { opacity: .55; cursor: wait; }
 .map-location-control svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.map-control-stack { position: absolute; z-index: 14; right: 10px; bottom: 14px; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.map-zoom-control { display: flex; flex-direction: column; align-items: center; overflow: hidden; width: 38px; padding: 2px; border: 1px solid #d8d4cc; border-radius: 5px; background: #fff; box-shadow: 0 2px 6px rgb(0 0 0 / 18%); }
+.map-zoom-control button { width: 32px; height: 30px; padding: 0; border: 0; color: #444; background: #fff; font: 22px/1 Arial, sans-serif; cursor: pointer; }
+.map-zoom-control button:hover { color: #2878d0; background: #f7faff; }
+.map-zoom-control button:focus-visible, .map-zoom-control input:focus-visible { outline: 2px solid #2878d0; outline-offset: -2px; }
+.map-zoom-control input { width: 28px; height: 82px; margin: 4px 0; accent-color: #555; writing-mode: vertical-lr; direction: rtl; cursor: pointer; }
+.map-location-control { display: grid; place-items: center; width: 38px; height: 38px; margin: 0; padding: 0; border: 1px solid #d8d4cc; border-radius: 5px; color: #444; background: #fff; box-shadow: 0 2px 6px rgb(0 0 0 / 18%); cursor: pointer; }
+.map-location-control:hover { color: #2878d0; background: #f7faff; }
+.map-location-control:focus-visible { outline: 2px solid #2878d0; outline-offset: 2px; }
+.map-location-control:disabled { opacity: .55; cursor: wait; }
+.map-location-control svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .map-caption { position: absolute; z-index: 2; top: 22px; left: 24px; display: flex; align-items: center; gap: 6px; padding: 10px 15px; border: 1px solid rgb(255 255 255 / 75%); border-radius: 30px; background: rgb(255 254 251 / 91%); box-shadow: 0 7px 24px rgb(47 42 32 / 13%); backdrop-filter: blur(10px); font-size: 12px; }
 .map-caption span { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent); }
 .map-caption strong { color: var(--accent-dark); }

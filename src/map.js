@@ -26,7 +26,6 @@ export function createConfiguredMap(container, config = YONGIN_CONFIG) {
     center: new kakao.maps.LatLng(config.center.lat, config.center.lng),
     level: config.level,
   });
-  map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.BOTTOMRIGHT);
   return map;
 }
 
