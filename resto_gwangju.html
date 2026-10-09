@@ -76,7 +76,7 @@
     </main>
   </div>
 
-  <dialog id="place-dialog" class="place-dialog" aria-labelledby="dialog-name">
+  <section id="place-dialog" class="place-dialog" role="dialog" aria-modal="false" aria-labelledby="dialog-name" hidden>
     <div id="dialog-drag-handle" class="dialog-drag-handle" role="separator" aria-label="상세 패널 크기 조절" tabindex="0"></div>
     <button id="dialog-close" class="dialog-close" type="button" aria-label="팝업 닫기">×</button>
     <p id="dialog-category" class="dialog-category"></p>
@@ -101,7 +101,7 @@
       <iframe id="review-frame" title="카카오맵 장소 리뷰" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       <a class="review-external" href="#" target="_blank" rel="noopener noreferrer">페이지가 표시되지 않으면 카카오맵에서 열기</a>
     </section>
-  </dialog>
+  </section>
   <script type="module" src="./src/main.js"></script>
 </body>
 
