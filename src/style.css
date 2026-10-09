@@ -310,11 +310,13 @@ h1 { margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -.05em; }
 }
 
 .place-dialog.showing-reviews { width: min(900px, calc(100% - 24px)); height: min(88vh, 820px); max-height: 88vh; padding: 16px; overflow: hidden; background: #fffdf9; }
-.place-dialog.showing-reviews > :not(.review-view):not(.dialog-close) { display: none; }
+.place-dialog.showing-reviews > :not(.review-view):not(.dialog-close):not(.dialog-drag-handle) { display: none; }
 .place-dialog.showing-reviews .dialog-close { z-index: 2; }
 .review-view { display: none; }
 .showing-reviews .review-view { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 8px; height: 100%; }
 .review-back { justify-self: start; padding: 8px 12px; border: 0; border-radius: 999px; background: #f3efe8; color: #625b55; font-weight: 700; cursor: pointer; }
 .review-view iframe { width: 100%; height: 100%; min-height: 0; border: 1px solid #e7e1d8; border-radius: 8px; background: white; }
 .review-external { justify-self: end; color: #746b5e; font-size: 12px; }
-@media (max-width: 760px), (pointer: coarse) and (max-width: 1366px) { .place-dialog.showing-reviews { position: fixed; inset: 0; width: 100%; height: 100dvh; max-height: none; padding: max(12px, env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom)); border-radius: 0; } }
+@media (max-width: 760px), (pointer: coarse) and (max-width: 1366px) {
+  .place-dialog.is-open.showing-reviews { position: fixed; z-index: 12; inset: auto 0 0; width: 100%; height: var(--sheet-height, 46dvh); min-height: 30dvh; max-height: min(66dvh, calc(100dvh - env(safe-area-inset-top) - 8px)); margin: 0; padding: 32px 12px calc(12px + env(safe-area-inset-bottom)); border-radius: 20px 20px 0 0; }
+}

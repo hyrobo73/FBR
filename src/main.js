@@ -257,6 +257,7 @@ function showReviews(event) {
   elements.reviewFrame.src = reviewUrl;
   elements.reviewExternal.href = reviewUrl;
   elements.dialog.classList.add('showing-reviews');
+  requestAnimationFrame(syncMapControlsWithPanels);
 }
 
 async function openKakaoPlacePopup(place) {
@@ -461,6 +462,7 @@ function bindEvents() {
   elements.reviewBack.addEventListener('click', () => {
     elements.reviewFrame.removeAttribute('src');
     elements.dialog.classList.remove('showing-reviews');
+    requestAnimationFrame(syncMapControlsWithPanels);
   });
   elements.dialog.addEventListener('click', (event) => {
     if (!isMobileLayout() && event.target === elements.dialog) closePlacePanel();
