@@ -188,7 +188,13 @@ function applyFilters() {
     const categoryMatches = state.category === '전체' || place.category === state.category;
     const name = normalizeSearchText(place.name);
     const address = normalizeSearchText(place.address);
-    const queryMatches = queryTokens.every((token) => !token || name.includes(token) || address.includes(token));
+    const kakaoCategory = normalizeSearchText(place.kakaoCategory);
+    const lotAddress = normalizeSearchText(place.lotAddress);
+    const queryMatches = queryTokens.every((token) => !token
+      || name.includes(token)
+      || address.includes(token)
+      || kakaoCategory.includes(token)
+      || lotAddress.includes(token));
     return categoryMatches && queryMatches;
   });
   elements.resultLabel.textContent = state.query ? `${state.category} · “${state.query}”` : `${state.category} 맛집`;

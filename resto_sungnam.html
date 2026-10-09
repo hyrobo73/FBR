@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#fcfaf6" />
   <meta name="description" content="경기도 성남시 맛집을 카테고리별로 살펴보는 지도" />
-  <title>성남 한입 지도</title>
+  <title>성남 맛집 지도</title>
 </head>
 
 <body>
@@ -18,10 +18,11 @@
           <div class="brand-mark" aria-hidden="true">성남</div>
           <div>
             <p class="eyebrow">SUNGNAM FOOD MAP</p>
-            <h1>성남 한입 지도</h1>
+            <h1>성남 맛집 지도</h1>
           </div>
         </header>
-        <button id="mobile-list-close" class="mobile-panel-close" type="button" aria-controls="restaurant-panel" aria-expanded="false">지도 보기 <span aria-hidden="true">↓</span></button>
+        <button id="mobile-list-close" class="mobile-panel-close" type="button" aria-controls="restaurant-panel"
+          aria-expanded="false">지도 보기 <span aria-hidden="true">↓</span></button>
       </div>
       <p class="intro">경기도 성남의 좋은 한 끼를 취향에 따라 지도 위에서 발견해 보세요.</p>
       <form id="search-form" class="search-form">
@@ -44,18 +45,18 @@
 
     <main class="map-shell" data-theme="전체">
       <div class="map-top-controls">
-      <a class="home-button" href="/" aria-label="경기도 맛집지도 홈으로 돌아가기" title="홈으로 돌아가기">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M3 10.5 12 3l9 7.5" />
-          <path d="M5.5 9.5V21h13V9.5" />
-          <path d="M9.5 21v-6h5v6" />
-        </svg>
-        <span>홈</span>
-      </a>
-      <div id="map-type-buttons" class="map-type-buttons" role="group" aria-label="지도 유형">
-        <button type="button" data-map-type="ROADMAP" aria-pressed="true">일반</button>
-        <button type="button" data-map-type="HYBRID" aria-pressed="false">항공</button>
-      </div>
+        <a class="home-button" href="/" aria-label="경기도 맛집지도 홈으로 돌아가기" title="홈으로 돌아가기">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 10.5 12 3l9 7.5" />
+            <path d="M5.5 9.5V21h13V9.5" />
+            <path d="M9.5 21v-6h5v6" />
+          </svg>
+          <span>홈</span>
+        </a>
+        <div id="map-type-buttons" class="map-type-buttons" role="group" aria-label="지도 유형">
+          <button type="button" data-map-type="ROADMAP" aria-pressed="true">일반</button>
+          <button type="button" data-map-type="HYBRID" aria-pressed="false">항공</button>
+        </div>
       </div>
       <div id="map" aria-label="경기도 성남시 맛집 지도"></div>
       <div class="map-caption"><span></span><strong>경기도 성남시</strong> 맛집을 둘러보는 중</div>
@@ -68,16 +69,19 @@
         <button type="button" data-category="양식" aria-pressed="false"><span aria-hidden="true">🥖</span>양식</button>
         <button type="button" data-category="간식" aria-pressed="false"><span aria-hidden="true">🍰</span>간식</button>
         <button type="button" data-category="분식" aria-pressed="false"><span aria-hidden="true">🍢</span>분식</button>
-        <button type="button" data-category="아시아음식" aria-pressed="false"><span aria-hidden="true">🥘</span>아시아음식</button>
+        <button type="button" data-category="아시아음식" aria-pressed="false"><span
+            aria-hidden="true">🥘</span>아시아음식</button>
       </nav>
       <div class="theme-props" aria-hidden="true"><span class="prop-one"></span><span class="prop-two"></span><span
           class="prop-three"></span></div>
-      <button id="mobile-list-button" class="mobile-list-button" type="button" aria-controls="restaurant-panel" aria-expanded="false">목록 보기</button>
+      <button id="mobile-list-button" class="mobile-list-button" type="button" aria-controls="restaurant-panel"
+        aria-expanded="false">목록 보기</button>
     </main>
   </div>
 
   <section id="place-dialog" class="place-dialog" role="dialog" aria-modal="false" aria-labelledby="dialog-name" hidden>
-    <div id="dialog-drag-handle" class="dialog-drag-handle" role="separator" aria-label="상세 패널 크기 조절" tabindex="0"></div>
+    <div id="dialog-drag-handle" class="dialog-drag-handle" role="separator" aria-label="상세 패널 크기 조절" tabindex="0">
+    </div>
     <button id="dialog-close" class="dialog-close" type="button" aria-label="팝업 닫기">×</button>
     <p id="dialog-category" class="dialog-category"></p>
     <h2 id="dialog-name"></h2>
@@ -106,4 +110,3 @@
 </body>
 
 </html>
-
