@@ -246,6 +246,7 @@ h1 { margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -.05em; }
 .place-dialog[data-category='아시아음식'] { --accent: #9eb9a1; --accent-dark: #526e55; --accent-soft: #e4efe3; }
 .place-dialog::backdrop { background: rgb(35 31 25 / 48%); backdrop-filter: blur(3px); }
 .dialog-close { position: absolute; top: 14px; right: 15px; width: 34px; height: 34px; border: 0; border-radius: 50%; color: #898278; background: #f3efe8; font-size: 22px; line-height: 1; cursor: pointer; }
+.dialog-list-button { display: none; }
 .dialog-category { margin: 0 42px 6px 0; color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .08em; }
 .place-dialog h2 { margin: 0 40px 14px 0; font-size: 24px; line-height: 1.35; letter-spacing: -.04em; }
 .dialog-rating { display: flex; align-items: baseline; gap: 5px; padding: 14px 16px; border-radius: 12px; color: var(--accent-dark); background: rgb(255 255 255 / 68%); }
@@ -297,6 +298,8 @@ h1 { margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -.05em; }
   .dialog-drag-handle:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 1px; }
   .place-dialog .dialog-close { position: absolute; top: 18px; right: 16px; display: grid; place-items: center; width: 34px; height: 34px; margin: 0; padding: 0; border-radius: 50%; font-size: 22px; }
   .place-dialog .dialog-close::after { content: none; }
+  .place-dialog .dialog-list-button { position: absolute; top: 18px; right: 58px; display: inline-flex; align-items: center; min-height: 34px; padding: 7px 11px; border: 1px solid var(--line); border-radius: 999px; color: var(--accent-dark); background: white; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .place-dialog .dialog-list-button:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 65%, white); outline-offset: 2px; }
 }
 
 @media (max-width: 380px) {

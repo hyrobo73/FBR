@@ -51,6 +51,7 @@ const elements = {
   mapTypeButtons: [...document.querySelectorAll('#map-type-buttons button')],
   dialog: document.querySelector('#place-dialog'),
   dialogClose: document.querySelector('#dialog-close'),
+  dialogListButton: document.querySelector('#dialog-list-button'),
   dialogCategory: document.querySelector('#dialog-category'),
   dialogName: document.querySelector('#dialog-name'),
   dialogRating: document.querySelector('#dialog-rating'),
@@ -464,6 +465,10 @@ function bindEvents() {
     });
   }));
   elements.dialogClose.addEventListener('click', closePlacePanel);
+  elements.dialogListButton.addEventListener('click', () => {
+    closePlacePanel();
+    setMobileListOpen(true);
+  });
   elements.dialogLink.addEventListener('click', showReviews);
   elements.reviewBack.addEventListener('click', () => {
     elements.reviewFrame.removeAttribute('src');
