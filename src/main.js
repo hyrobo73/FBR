@@ -2,6 +2,7 @@ import './style.css';
 import yonginCsvUrl from '../맛집정보/favorite_restaurants_yongin.csv?url';
 import yonginCoordinates from './data/favorite_restaurants_yongin.json';
 import gwangjuCoordinates from './data/favorite_restaurants_gwangju.json';
+import sungnamCoordinates from './data/favorite_restaurants_sungnam.json';
 import { createConfiguredMap, fitMapToPlaces, loadKakaoMaps, YONGIN_CONFIG } from './map.js';
 import { findPlaceDetails, loadRestaurantCsv, locateRestaurants } from './places.js';
 import { createMarkerManager } from './markers.js';
@@ -15,12 +16,22 @@ const appConfig = cityKey === 'gwangju'
       coordinates: gwangjuCoordinates,
       map: { center: { lat: 37.4095, lng: 127.2550 }, level: 9 },
     }
-  : {
-      cityName: '용인시',
-      source: 'favorite_restaurants_yongin.csv',
-      coordinates: yonginCoordinates,
-      map: YONGIN_CONFIG,
-    };
+  : cityKey === 'sungnam'
+    ? {
+        cityName: '성남시',
+        source: 'favorite_restaurants_sungnam.json',
+        coordinates: {
+          ...sungnamCoordinates,
+          restaurants: sungnamCoordinates.restaurants.map((place) => ({ ...place, city: 'sungnam' })),
+        },
+        map: { center: { lat: 37.4202, lng: 127.1265 }, level: 9 },
+      }
+    : {
+        cityName: '용인시',
+        source: 'favorite_restaurants_yongin.csv',
+        coordinates: yonginCoordinates,
+        map: YONGIN_CONFIG,
+      };
 
 const elements = {
   map: document.querySelector('#map'),
@@ -254,6 +265,9 @@ async function loadRestaurants() {
 
   if (cityKey === 'gwangju') {
     throw new Error('광주시 음식점 좌표 데이터가 없습니다. npm run data:geocode:gwangju를 실행해 주세요.');
+  }
+  if (cityKey === 'sungnam') {
+    throw new Error('성남시 음식점 좌표 데이터가 없습니다. favorite_restaurants_sungnam.json을 확인해 주세요.');
   }
 
   const restaurants = await loadRestaurantCsv(yonginCsvUrl);

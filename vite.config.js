@@ -10,6 +10,7 @@ export default defineConfig({
         main: resolve(process.cwd(), 'index.html'),
         yongin: resolve(process.cwd(), 'resto_yongin.html'),
         gwangju: resolve(process.cwd(), 'resto_gwangju.html'),
+        sungnam: resolve(process.cwd(), 'resto_sungnam.html'),
       },
     },
   },
