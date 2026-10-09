@@ -148,8 +148,12 @@ function createListItem(place, index) {
     </button>`;
   item.querySelector('button').addEventListener('click', () => {
     state.markerManager.open(place);
+    if (isMobileLayout()) {
+      setMobileListOpen(false);
+      openPlaceDialog(place);
+      return;
+    }
     handlePlaceSelect(place);
-    if (isMobileLayout()) setMobileListOpen(false);
   });
   return item;
 }
@@ -448,7 +452,7 @@ function bindEvents() {
     elements.dialog.classList.remove('showing-reviews');
   });
   elements.dialog.addEventListener('click', (event) => {
-    if (event.target === elements.dialog) elements.dialog.close();
+    if (!isMobileLayout() && event.target === elements.dialog) elements.dialog.close();
   });
   const finishDialogDrag = (event) => {
     if (!dialogDrag || event.pointerId !== dialogDrag.pointerId) return;
