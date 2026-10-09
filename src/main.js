@@ -44,6 +44,7 @@ const elements = {
   locationButton: document.querySelector('#location-button'),
   mobileListButton: document.querySelector('#mobile-list-button'),
   mobileListClose: document.querySelector('#mobile-list-close'),
+  listDragHandle: document.querySelector('#list-drag-handle'),
   sidebar: document.querySelector('.sidebar'),
   mapShell: document.querySelector('.map-shell'),
   categoryTabs: [...document.querySelectorAll('#category-tabs button')],
@@ -79,10 +80,25 @@ const state = {
 
 let mapLocationButton;
 let mapZoomSlider;
+let mapControlStack;
 let dialogDrag = null;
+let listDrag = null;
 
 function isMobileLayout() {
   return window.matchMedia('(max-width: 760px), (pointer: coarse) and (max-width: 1366px)').matches;
+}
+
+function syncMapControlsWithPanels() {
+  const openPanel = elements.dialog.open
+    ? elements.dialog
+    : elements.sidebar.classList.contains('is-open') ? elements.sidebar : null;
+  if (!isMobileLayout() || !openPanel) {
+    elements.mapShell.classList.remove('has-place-sheet');
+    elements.mapShell.style.removeProperty('--sheet-offset');
+    return;
+  }
+  elements.mapShell.classList.add('has-place-sheet');
+  elements.mapShell.style.setProperty('--sheet-offset', `${openPanel.getBoundingClientRect().height}px`);
 }
 
 function escapeHtml(value = '') {
@@ -99,8 +115,10 @@ function setStatus(message = '', type = '') {
 
 function setMobileListOpen(isOpen) {
   elements.sidebar.classList.toggle('is-open', isOpen);
+  if (!isOpen) elements.sidebar.classList.remove('is-dragging');
   elements.mobileListButton.setAttribute('aria-expanded', String(isOpen));
   elements.mobileListClose.setAttribute('aria-expanded', String(isOpen));
+  requestAnimationFrame(syncMapControlsWithPanels);
 }
 
 function selectListItem(place) {
@@ -131,7 +149,7 @@ function createListItem(place, index) {
   item.querySelector('button').addEventListener('click', () => {
     state.markerManager.open(place);
     handlePlaceSelect(place);
-    if (window.matchMedia('(max-width: 760px), (pointer: coarse) and (max-width: 1366px)').matches) setMobileListOpen(false);
+    if (isMobileLayout()) setMobileListOpen(false);
   });
   return item;
 }
@@ -185,7 +203,8 @@ async function openPlaceDialog(place) {
   elements.dialogHelp.textContent = place.url
     ? '카카오 평점과 방문자 리뷰는 카카오맵 상세 페이지에서 확인할 수 있어요.'
     : '카카오맵 장소 정보를 확인하고 있어요…';
-  if (!elements.dialog.open) elements.dialog.showModal();
+  if (!elements.dialog.open) elements.dialog.show();
+  requestAnimationFrame(syncMapControlsWithPanels);
   if (place.url && place.phone) return;
 
   try {
@@ -369,6 +388,50 @@ function bindEvents() {
 
   elements.mobileListButton.addEventListener('click', () => setMobileListOpen(true));
   elements.mobileListClose.addEventListener('click', () => setMobileListOpen(false));
+  const finishListDrag = (event) => {
+    if (!listDrag || event.pointerId !== listDrag.pointerId) return;
+    const heightRatio = elements.sidebar.getBoundingClientRect().height / window.innerHeight;
+    const snapRatio = heightRatio < 0.43 ? 0.34 : heightRatio < 0.59 ? 0.52 : 0.66;
+    elements.sidebar.style.setProperty('--list-sheet-height', `${snapRatio * 100}dvh`);
+    elements.sidebar.classList.remove('is-dragging');
+    syncMapControlsWithPanels();
+    if (elements.listDragHandle.hasPointerCapture(event.pointerId)) {
+      elements.listDragHandle.releasePointerCapture(event.pointerId);
+    }
+    listDrag = null;
+  };
+  elements.listDragHandle.addEventListener('pointerdown', (event) => {
+    if (!isMobileLayout() || !elements.sidebar.classList.contains('is-open') || event.button !== 0) return;
+    event.preventDefault();
+    listDrag = {
+      pointerId: event.pointerId,
+      startY: event.clientY,
+      startHeight: elements.sidebar.getBoundingClientRect().height,
+    };
+    elements.sidebar.classList.add('is-dragging');
+    elements.listDragHandle.setPointerCapture(event.pointerId);
+  });
+  elements.listDragHandle.addEventListener('pointermove', (event) => {
+    if (!listDrag || event.pointerId !== listDrag.pointerId) return;
+    event.preventDefault();
+    const minHeight = window.innerHeight * 0.3;
+    const maxHeight = window.innerHeight * 0.66;
+    const height = Math.max(minHeight, Math.min(maxHeight, listDrag.startHeight + listDrag.startY - event.clientY));
+    elements.sidebar.style.setProperty('--list-sheet-height', `${height}px`);
+    syncMapControlsWithPanels();
+  });
+  elements.listDragHandle.addEventListener('pointerup', finishListDrag);
+  elements.listDragHandle.addEventListener('pointercancel', finishListDrag);
+  elements.listDragHandle.addEventListener('keydown', (event) => {
+    if (!isMobileLayout() || !elements.sidebar.classList.contains('is-open') || !['ArrowUp', 'ArrowDown'].includes(event.key)) return;
+    event.preventDefault();
+    const currentRatio = elements.sidebar.getBoundingClientRect().height / window.innerHeight;
+    const nextRatio = event.key === 'ArrowUp'
+      ? (currentRatio < 0.43 ? 0.52 : 0.66)
+      : (currentRatio > 0.59 ? 0.52 : 0.34);
+    elements.sidebar.style.setProperty('--list-sheet-height', `${nextRatio * 100}dvh`);
+    syncMapControlsWithPanels();
+  });
   elements.mapTypeButtons.forEach((button) => button.addEventListener('click', () => {
     const mapType = button.dataset.mapType === 'HYBRID' ? kakao.maps.MapTypeId.HYBRID : kakao.maps.MapTypeId.ROADMAP;
     state.map.setMapTypeId(mapType);
@@ -392,9 +455,10 @@ function bindEvents() {
     const currentHeight = elements.dialog.getBoundingClientRect().height;
     const viewportHeight = window.innerHeight;
     const heightRatio = currentHeight / viewportHeight;
-    const snapRatio = heightRatio < 0.43 ? 0.34 : heightRatio < 0.7 ? 0.55 : 0.88;
+    const snapRatio = heightRatio < 0.43 ? 0.34 : heightRatio < 0.59 ? 0.52 : 0.66;
     elements.dialog.style.setProperty('--sheet-height', `${snapRatio * 100}dvh`);
     elements.dialog.classList.remove('is-dragging');
+    syncMapControlsWithPanels();
     if (elements.dialogDragHandle.hasPointerCapture(event.pointerId)) {
       elements.dialogDragHandle.releasePointerCapture(event.pointerId);
     }
@@ -415,9 +479,10 @@ function bindEvents() {
     if (!dialogDrag || event.pointerId !== dialogDrag.pointerId) return;
     event.preventDefault();
     const minHeight = window.innerHeight * 0.3;
-    const maxHeight = window.innerHeight * 0.88;
+    const maxHeight = window.innerHeight * 0.66;
     const height = Math.max(minHeight, Math.min(maxHeight, dialogDrag.startHeight + dialogDrag.startY - event.clientY));
     elements.dialog.style.setProperty('--sheet-height', `${height}px`);
+    syncMapControlsWithPanels();
   });
   elements.dialogDragHandle.addEventListener('pointerup', finishDialogDrag);
   elements.dialogDragHandle.addEventListener('pointercancel', finishDialogDrag);
@@ -426,15 +491,17 @@ function bindEvents() {
     event.preventDefault();
     const currentRatio = elements.dialog.getBoundingClientRect().height / window.innerHeight;
     const nextRatio = event.key === 'ArrowUp'
-      ? (currentRatio < 0.43 ? 0.55 : 0.88)
-      : (currentRatio > 0.7 ? 0.55 : 0.34);
+      ? (currentRatio < 0.43 ? 0.52 : 0.66)
+      : (currentRatio > 0.59 ? 0.52 : 0.34);
     elements.dialog.style.setProperty('--sheet-height', `${nextRatio * 100}dvh`);
+    syncMapControlsWithPanels();
   });
   elements.dialog.addEventListener('close', () => {
     state.selectedPlaceId = null;
     state.detailRequestId += 1;
     elements.dialog.classList.remove('is-dragging');
     dialogDrag = null;
+    syncMapControlsWithPanels();
   });
 }
 
@@ -442,7 +509,7 @@ async function initialize() {
   try {
     await loadKakaoMaps(import.meta.env.VITE_KAKAO_MAP_API_KEY);
     state.map = createConfiguredMap(elements.map, appConfig.map);
-    const mapControlStack = document.createElement('div');
+    mapControlStack = document.createElement('div');
     mapControlStack.className = 'map-control-stack';
     mapControlStack.innerHTML = '<div class="map-zoom-control" role="group" aria-label="지도 축척 조절"><button type="button" data-zoom-in aria-label="지도 확대">+</button><input type="range" min="1" max="14" step="1" aria-label="지도 축척" /><button type="button" data-zoom-out aria-label="지도 축소">−</button></div>';
     mapLocationButton = document.createElement('button');
