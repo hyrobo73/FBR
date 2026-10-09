@@ -235,6 +235,7 @@ h1 { margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -.05em; }
   background: linear-gradient(155deg, #fffdf9, var(--accent-soft));
   box-shadow: 0 24px 80px rgb(31 27 20 / 30%);
 }
+.dialog-drag-handle { display: none; }
 .place-dialog[data-category='한식'] { --accent: #9fc8ae; --accent-dark: #537763; --accent-soft: #e3f1e7; }
 .place-dialog[data-category='중식'] { --accent: #efaaa8; --accent-dark: #9c5b5b; --accent-soft: #fde3e1; }
 .place-dialog[data-category='일식'] { --accent: #bbb6df; --accent-dark: #6d678f; --accent-soft: #ebe9f8; }
@@ -283,11 +284,14 @@ h1 { margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -.05em; }
   .map-category-tabs button { min-width: 44px; min-height: 44px; padding: 8px 11px; font-size: 12px; }
   .mobile-list-button { display: block; position: absolute; z-index: 5; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom)); transform: translateX(-50%); min-height: 46px; padding: 12px 21px; border: 0; border-radius: 24px; color: white; background: var(--ink); box-shadow: 0 7px 22px rgb(30 28 22 / 25%); font-size: 13px; font-weight: 700; cursor: pointer; }
   .sidebar.is-open + .map-shell .mobile-list-button { display: none; }
-  .place-dialog { padding: 24px 21px; border-radius: 20px; }
-  .place-dialog[open] { position: fixed; inset: 0; box-sizing: border-box; width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: max(18px, env(safe-area-inset-top)) 21px calc(24px + env(safe-area-inset-bottom)); border-radius: 0; overflow-y: auto; }
-  .place-dialog::backdrop { background: #fffdf9; }
-  .place-dialog .dialog-close { position: static; display: inline-flex; align-items: center; justify-content: center; width: auto; min-height: 42px; margin: 0 0 28px -8px; padding: 0 12px; border-radius: 999px; font-size: 0; font-weight: 700; }
-  .place-dialog .dialog-close::after { content: '← 뒤로가기'; font-size: 14px; }
+  .place-dialog[open] { position: fixed; inset: auto 0 0; display: block; box-sizing: border-box; width: 100%; max-width: none; height: var(--sheet-height, 46dvh); min-height: 30dvh; max-height: calc(100dvh - env(safe-area-inset-top) - 8px); margin: 0; padding: 32px 21px calc(22px + env(safe-area-inset-bottom)); border-radius: 20px 20px 0 0; overflow-y: auto; overscroll-behavior: contain; background: linear-gradient(155deg, #fffdf9, var(--accent-soft)); }
+  .place-dialog.is-dragging { transition: none; user-select: none; }
+  .place-dialog::backdrop { background: rgb(35 31 25 / 5%); backdrop-filter: none; }
+  .dialog-drag-handle { position: sticky; top: -24px; z-index: 2; display: block; width: 64px; height: 18px; margin: -24px auto 10px; border: 0; border-radius: 999px; background: transparent; touch-action: none; cursor: ns-resize; }
+  .dialog-drag-handle::before { content: ''; position: absolute; top: 7px; left: 50%; width: 38px; height: 4px; border-radius: 4px; background: #c9c2b8; transform: translateX(-50%); }
+  .dialog-drag-handle:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 1px; }
+  .place-dialog .dialog-close { position: absolute; top: 18px; right: 16px; display: grid; place-items: center; width: 34px; height: 34px; margin: 0; padding: 0; border-radius: 50%; font-size: 22px; }
+  .place-dialog .dialog-close::after { content: none; }
 }
 
 @media (max-width: 380px) {
@@ -308,4 +312,4 @@ h1 { margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -.05em; }
 .review-back { justify-self: start; padding: 8px 12px; border: 0; border-radius: 999px; background: #f3efe8; color: #625b55; font-weight: 700; cursor: pointer; }
 .review-view iframe { width: 100%; height: 100%; min-height: 0; border: 1px solid #e7e1d8; border-radius: 8px; background: white; }
 .review-external { justify-self: end; color: #746b5e; font-size: 12px; }
-@media (max-width: 760px), (pointer: coarse) and (max-width: 1366px) { .place-dialog.showing-reviews { width: 100%; height: 100%; max-height: none; padding: max(12px, env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom)); } }
+@media (max-width: 760px), (pointer: coarse) and (max-width: 1366px) { .place-dialog.showing-reviews { position: fixed; inset: 0; width: 100%; height: 100dvh; max-height: none; padding: max(12px, env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom)); border-radius: 0; } }

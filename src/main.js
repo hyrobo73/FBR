@@ -61,6 +61,7 @@ const elements = {
   reviewFrame: document.querySelector('#review-frame'),
   reviewBack: document.querySelector('#review-back'),
   reviewExternal: document.querySelector('.review-external'),
+  dialogDragHandle: document.querySelector('#dialog-drag-handle'),
 };
 
 const state = {
@@ -78,6 +79,11 @@ const state = {
 
 let mapLocationButton;
 let mapZoomSlider;
+let dialogDrag = null;
+
+function isMobileLayout() {
+  return window.matchMedia('(max-width: 760px), (pointer: coarse) and (max-width: 1366px)').matches;
+}
 
 function escapeHtml(value = '') {
   const node = document.createElement('div');
@@ -174,6 +180,8 @@ async function openPlaceDialog(place) {
   state.selectedPlaceId = place.id;
   const requestId = ++state.detailRequestId;
   updateDialog(place);
+  elements.dialog.style.removeProperty('--sheet-height');
+  elements.dialog.classList.remove('is-dragging');
   elements.dialogHelp.textContent = place.url
     ? '카카오 평점과 방문자 리뷰는 카카오맵 상세 페이지에서 확인할 수 있어요.'
     : '카카오맵 장소 정보를 확인하고 있어요…';
@@ -194,7 +202,7 @@ async function openPlaceDialog(place) {
 
 function handlePlaceSelect(place) {
   selectListItem(place);
-  if (window.matchMedia('(max-width: 760px), (pointer: coarse) and (max-width: 1366px)').matches) {
+  if (isMobileLayout()) {
     openPlaceDialog(place);
     return;
   }
@@ -379,9 +387,54 @@ function bindEvents() {
   elements.dialog.addEventListener('click', (event) => {
     if (event.target === elements.dialog) elements.dialog.close();
   });
+  const finishDialogDrag = (event) => {
+    if (!dialogDrag || event.pointerId !== dialogDrag.pointerId) return;
+    const currentHeight = elements.dialog.getBoundingClientRect().height;
+    const viewportHeight = window.innerHeight;
+    const heightRatio = currentHeight / viewportHeight;
+    const snapRatio = heightRatio < 0.43 ? 0.34 : heightRatio < 0.7 ? 0.55 : 0.88;
+    elements.dialog.style.setProperty('--sheet-height', `${snapRatio * 100}dvh`);
+    elements.dialog.classList.remove('is-dragging');
+    if (elements.dialogDragHandle.hasPointerCapture(event.pointerId)) {
+      elements.dialogDragHandle.releasePointerCapture(event.pointerId);
+    }
+    dialogDrag = null;
+  };
+  elements.dialogDragHandle.addEventListener('pointerdown', (event) => {
+    if (!isMobileLayout() || !elements.dialog.open || event.button !== 0) return;
+    event.preventDefault();
+    dialogDrag = {
+      pointerId: event.pointerId,
+      startY: event.clientY,
+      startHeight: elements.dialog.getBoundingClientRect().height,
+    };
+    elements.dialog.classList.add('is-dragging');
+    elements.dialogDragHandle.setPointerCapture(event.pointerId);
+  });
+  elements.dialogDragHandle.addEventListener('pointermove', (event) => {
+    if (!dialogDrag || event.pointerId !== dialogDrag.pointerId) return;
+    event.preventDefault();
+    const minHeight = window.innerHeight * 0.3;
+    const maxHeight = window.innerHeight * 0.88;
+    const height = Math.max(minHeight, Math.min(maxHeight, dialogDrag.startHeight + dialogDrag.startY - event.clientY));
+    elements.dialog.style.setProperty('--sheet-height', `${height}px`);
+  });
+  elements.dialogDragHandle.addEventListener('pointerup', finishDialogDrag);
+  elements.dialogDragHandle.addEventListener('pointercancel', finishDialogDrag);
+  elements.dialogDragHandle.addEventListener('keydown', (event) => {
+    if (!isMobileLayout() || !elements.dialog.open || !['ArrowUp', 'ArrowDown'].includes(event.key)) return;
+    event.preventDefault();
+    const currentRatio = elements.dialog.getBoundingClientRect().height / window.innerHeight;
+    const nextRatio = event.key === 'ArrowUp'
+      ? (currentRatio < 0.43 ? 0.55 : 0.88)
+      : (currentRatio > 0.7 ? 0.55 : 0.34);
+    elements.dialog.style.setProperty('--sheet-height', `${nextRatio * 100}dvh`);
+  });
   elements.dialog.addEventListener('close', () => {
     state.selectedPlaceId = null;
     state.detailRequestId += 1;
+    elements.dialog.classList.remove('is-dragging');
+    dialogDrag = null;
   });
 }
 
