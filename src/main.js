@@ -472,7 +472,7 @@ function bindEvents() {
     const currentHeight = elements.dialog.getBoundingClientRect().height;
     const viewportHeight = window.innerHeight;
     const heightRatio = currentHeight / viewportHeight;
-    const snapRatio = heightRatio < 0.43 ? 0.34 : heightRatio < 0.59 ? 0.52 : 0.66;
+    const snapRatio = heightRatio < 0.48 ? 0.34 : heightRatio < 0.8 ? 0.62 : 1;
     elements.dialog.style.setProperty('--sheet-height', `${snapRatio * 100}dvh`);
     elements.dialog.classList.remove('is-dragging');
     syncMapControlsWithPanels();
@@ -496,7 +496,7 @@ function bindEvents() {
     if (!dialogDrag || event.pointerId !== dialogDrag.pointerId) return;
     event.preventDefault();
     const minHeight = window.innerHeight * 0.3;
-    const maxHeight = window.innerHeight * 0.66;
+    const maxHeight = window.innerHeight;
     const height = Math.max(minHeight, Math.min(maxHeight, dialogDrag.startHeight + dialogDrag.startY - event.clientY));
     elements.dialog.style.setProperty('--sheet-height', `${height}px`);
     syncMapControlsWithPanels();
@@ -508,8 +508,8 @@ function bindEvents() {
     event.preventDefault();
     const currentRatio = elements.dialog.getBoundingClientRect().height / window.innerHeight;
     const nextRatio = event.key === 'ArrowUp'
-      ? (currentRatio < 0.43 ? 0.52 : 0.66)
-      : (currentRatio > 0.59 ? 0.52 : 0.34);
+      ? (currentRatio < 0.48 ? 0.62 : 1)
+      : (currentRatio > 0.8 ? 0.62 : 0.34);
     elements.dialog.style.setProperty('--sheet-height', `${nextRatio * 100}dvh`);
     syncMapControlsWithPanels();
   });
