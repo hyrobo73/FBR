@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>카카오맵 장소 연동</title>
+</head>
+
+<body>
+    <!-- 지도가 표시될 div -->
+    <div id="map" style="width:100%;height:400px;"></div>
+
+    <!-- 카카오 지도 스크립트 불러오기 (발급받은 JavaScript 키 입력) -->
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=663276f8a18cfd3ef0f53d100b6fc4ac&libraries=services"></script>
+    <script>
+        var container = document.getElementById('map');
+        var options = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 초기 중심 좌표
+            level: 3
+        };
+
+        var map = new kakao.maps.Map(container, options);
+
+        // 장소 ID(1603346912)나 키워드를 기반으로 장소 상세 정보를 조회하거나 
+        // Places 서비스 객체를 이용해 해당 위치를 지도 위에 마커로 표현할 수 있습니다.
+    </script>
+</body>
+
+</html>

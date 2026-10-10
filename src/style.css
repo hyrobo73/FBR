@@ -1376,7 +1376,7 @@ h1 {
     box-sizing: border-box;
     width: 100%;
     max-width: none;
-    height: var(--sheet-height, 46dvh);
+    height: var(--sheet-height, 60dvh);
     min-height: 30dvh;
     max-height: 100dvh;
     margin: 0;
