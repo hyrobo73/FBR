@@ -224,9 +224,11 @@ function applyFilters() {
   renderPlaces(places);
 }
 
-function updateDialog(place) {
-  elements.dialog.classList.remove('showing-reviews');
-  elements.reviewFrame.removeAttribute('src');
+function updateDialog(place, { preserveReviewView = false } = {}) {
+  if (!preserveReviewView) {
+    elements.dialog.classList.remove('showing-reviews');
+    elements.reviewFrame.removeAttribute('src');
+  }
   elements.dialog.dataset.category = place.category || '전체';
   elements.dialogCategory.textContent = place.category || '음식점';
   elements.dialogName.textContent = place.name;
@@ -255,7 +257,7 @@ async function openPlaceDialog(place) {
     const details = await findPlaceDetails(place);
     if (requestId !== state.detailRequestId || state.selectedPlaceId !== place.id) return;
     Object.assign(place, details);
-    updateDialog(place);
+    updateDialog(place, { preserveReviewView: true });
     elements.dialogHelp.textContent = '카카오 평점과 방문자 리뷰는 카카오맵 상세 페이지에서 확인할 수 있어요.';
   } catch {
     if (requestId !== state.detailRequestId) return;
@@ -267,6 +269,7 @@ function handlePlaceSelect(place) {
   selectListItem(place);
   if (isMobileLayout()) {
     openPlaceDialog(place);
+    showReviewsForPlace(place);
     return;
   }
   openKakaoPlacePopup(place);
@@ -278,15 +281,18 @@ function getKakaoPlaceUrl(place) {
   return '';
 }
 
-function showReviews(event) {
-  event.preventDefault();
-  const place = state.allPlaces.find((item) => item.id === state.selectedPlaceId);
-  if (!place) return;
+function showReviewsForPlace(place) {
   const reviewUrl = getKakaoPlaceUrl(place) || elements.dialogLink.href;
   elements.reviewFrame.src = reviewUrl;
   elements.reviewExternal.href = reviewUrl;
   elements.dialog.classList.add('showing-reviews');
   requestAnimationFrame(syncMapControlsWithPanels);
+}
+
+function showReviews(event) {
+  event.preventDefault();
+  const place = state.allPlaces.find((item) => item.id === state.selectedPlaceId);
+  if (place) showReviewsForPlace(place);
 }
 
 async function openKakaoPlacePopup(place) {
