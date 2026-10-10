@@ -11,6 +11,8 @@ export default defineConfig({
         yongin: resolve(process.cwd(), 'resto_yongin.html'),
         gwangju: resolve(process.cwd(), 'resto_gwangju.html'),
         sungnam: resolve(process.cwd(), 'resto_sungnam.html'),
+        hanam: resolve(process.cwd(), 'resto_hanam.html'),
+        suwon: resolve(process.cwd(), 'resto_suwon.html'),
       },
     },
   },

@@ -10,6 +10,10 @@ a { color: inherit; text-decoration: none; }
 .wordmark { display: inline-flex; align-items: center; gap: 12px; font-size: 11px; font-weight: 800; letter-spacing: .17em; }
 .wordmark-badge { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #fff; background: #bd5446; font-family: 'Song Myung', serif; font-size: 16px; letter-spacing: -.06em; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 28%); }
 .header-note { margin: 0; color: #746d64; font-size: 12px; }
+.visitor-stats { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.visitor-stats > div { min-width: 118px; padding: 11px 14px; border: 1px solid #d8d0c2; border-radius: 12px; background: rgb(255 255 255 / 42%); }
+.visitor-stats span { display: block; color: #746d64; font-size: 11px; font-weight: 700; }
+.visitor-stats strong { display: block; margin-top: 3px; color: #a44a3f; font-size: 22px; line-height: 1; }
 .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 390px); align-items: end; gap: 40px; padding: clamp(64px, 10vh, 112px) 0 46px; border-bottom: 1px solid #d8d0c2; }
 .hero-kicker { grid-column: 1 / -1; margin: 0 0 -20px; color: #a44a3f; font-size: 13px; font-weight: 800; letter-spacing: .08em; }
 .hero h1 { margin: 0; font-family: 'Song Myung', serif; font-size: clamp(64px, 9vw, 112px); font-weight: 400; letter-spacing: -.08em; line-height: .83; }
@@ -21,6 +25,8 @@ a { color: inherit; text-decoration: none; }
 .city-card--yongin { color: #203d31; background: #cfe1ce; }
 .city-card--gwangju { color: #4a2a20; background: #edc7a5; }
 .city-card--sungnam { color: #2e3d53; background: #cad7e8; }
+.city-card--hanam { color: #3c3557; background: #d9d0eb; }
+.city-card--suwon { color: #3d4531; background: #dce6c5; }
 .card-topline { display: flex; justify-content: space-between; font-size: 10px; font-weight: 900; letter-spacing: .18em; opacity: .68; }
 .card-region { margin: 0 0 8px; font-size: 12px; font-weight: 700; letter-spacing: .04em; opacity: .68; }
 .card-main h2 { margin: 0; font-family: 'Song Myung', serif; font-size: clamp(50px, 6vw, 76px); font-weight: 400; letter-spacing: -.06em; line-height: 1; }
@@ -42,6 +48,8 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 760px) {
   .landing { width: min(100% - 28px, 560px); padding-top: 18px; }
   .header-note { display: none; }
+  .visitor-stats { justify-content: flex-start; margin-top: 18px; }
+  .visitor-stats > div { flex: 1; min-width: 0; }
   .hero { display: block; padding: 64px 0 30px; }
   .hero-kicker { margin-bottom: 18px; }
   .hero h1 { font-size: clamp(58px, 21vw, 86px); }

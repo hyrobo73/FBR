@@ -19,6 +19,31 @@
       </a>
       <p class="header-note">좋은 한 끼를 찾는 가장 가까운 지도</p>
     </header>
+    <!--
+    <section class="visitor-stats" aria-label="방문자 통계">
+      <div><span>오늘 방문</span><strong id="today-visitor-count">0</strong></div>
+      <div><span>누적 방문</span><strong id="total-visitor-count">0</strong></div>
+    </section>
+-->
+    <!--
+    <section class="visitor-counter" aria-label="웹사이트 방문 통계">
+      <div class="visitor-item">
+        <span class="visitor-label">오늘 방문객</span>
+        <strong id="today-visitors">집계 중...</strong>
+      </div>
+      <div class="visitor-divider"></div>
+      <div class="visitor-item">
+        <span class="visitor-label">전체 방문객</span>
+        <strong id="total-visitors">집계 중...</strong>
+      </div>
+    </section>
+    <script type="module" src="./src/visitor-counter.js"></script>
+-->
+    <section class="visitor-stats" aria-label="방문자 통계">
+      <div><span>오늘 방문</span><strong id="today-visitors">0</strong></div>
+      <div><span>누적 방문</span><strong id="total-visitors">0</strong></div>
+    </section>
+
 
     <section class="hero" aria-labelledby="page-title">
       <p class="hero-kicker">오늘은 어디에서 먹을까요?</p>
@@ -68,6 +93,32 @@
           <span class="card-arrow" aria-hidden="true">↗</span>
         </div>
       </a>
+      <a class="city-card city-card--hanam" href="./resto_hanam.html">
+        <div class="card-topline"><span>04</span><span>HANAM</span></div>
+        <div class="card-main">
+          <p class="card-region">미사 · 감일 · 덕풍 · 신장</p>
+          <h2>하남시</h2>
+          <p>미사강변과 하남 곳곳의 맛집을 지도에서 찾아보세요.</p>
+        </div>
+        <div class="card-footer">
+          <div><strong>165</strong><span>지역 맛집</span></div>
+          <div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span
+            class="card-arrow" aria-hidden="true">↗</span>
+        </div>
+      </a>
+      <a class="city-card city-card--suwon" href="./resto_suwon.html">
+        <div class="card-topline"><span>05</span><span>SUWON</span></div>
+        <div class="card-main">
+          <p class="card-region">장안 · 권선 · 팔달 · 영통</p>
+          <h2>수원시</h2>
+          <p>수원 곳곳의 맛집을 지도에서 찾아보세요.</p>
+        </div>
+        <div class="card-footer">
+          <div><strong>910</strong><span>지역 맛집</span></div>
+          <div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span
+            class="card-arrow" aria-hidden="true">↗</span>
+        </div>
+      </a>
     </section>
 
     <footer class="landing-footer">
@@ -75,6 +126,32 @@
       <p>지역별 맛집은 계속 확장됩니다.</p>
     </footer>
   </main>
+  <script>
+    (() => {
+      const storageKey = 'gyeonggi-food-map-visitor-counts-v1';
+      const todayKey = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit',
+      }).format(new Date());
+      let counts = { day: todayKey, today: 0, total: 0 };
+
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+        if (saved && Number.isFinite(saved.total) && Number.isFinite(saved.today)) counts = saved;
+        if (counts.day !== todayKey) {
+          counts.day = todayKey;
+          counts.today = 0;
+        }
+        counts.today += 1;
+        counts.total += 1;
+        localStorage.setItem(storageKey, JSON.stringify(counts));
+      } catch {
+        // Storage may be unavailable in private browsing; the display remains at zero.
+      }
+
+      document.querySelector('#today-visitor-count').textContent = counts.today.toLocaleString('ko-KR');
+      document.querySelector('#total-visitor-count').textContent = counts.total.toLocaleString('ko-KR');
+    })();
+  </script>
 </body>
 
 </html>

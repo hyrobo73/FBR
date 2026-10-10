@@ -15,3 +15,12 @@
     "vite": "^8.3.1"
   }
 }
+
+{
+  "name": "visitor-counter",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0"
+  }
+}

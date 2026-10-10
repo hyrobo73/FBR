@@ -3,6 +3,8 @@ import yonginCsvUrl from '../맛집정보/favorite_restaurants_yongin.csv?url';
 import yonginCoordinates from './data/favorite_restaurants_yongin.json';
 import gwangjuCoordinates from './data/favorite_restaurants_gwangju.json';
 import sungnamCoordinates from './data/favorite_restaurants_sungnam.json';
+import hanamCoordinates from './data/favorite_restaurants_hanam.json';
+import suwonCoordinates from './data/favorite_restaurants_suwon.json';
 import { createConfiguredMap, fitMapToPlaces, loadKakaoMaps, YONGIN_CONFIG } from './map.js';
 import { findPlaceDetails, loadRestaurantCsv, locateRestaurants } from './places.js';
 import { createMarkerManager } from './markers.js';
@@ -26,6 +28,26 @@ const appConfig = cityKey === 'gwangju'
         },
         map: { center: { lat: 37.4202, lng: 127.1265 }, level: 9 },
       }
+    : cityKey === 'hanam'
+      ? {
+          cityName: '하남시',
+          source: 'favorite_restaurants_hanam.json',
+          coordinates: {
+            ...hanamCoordinates,
+            restaurants: hanamCoordinates.restaurants.map((place) => ({ ...place, city: 'hanam' })),
+          },
+          map: { center: { lat: 37.5393, lng: 127.2148 }, level: 8 },
+        }
+      : cityKey === 'suwon'
+        ? {
+            cityName: '수원시',
+            source: 'favorite_restaurants_suwon.json',
+            coordinates: {
+              ...suwonCoordinates,
+              restaurants: suwonCoordinates.restaurants.map((place) => ({ ...place, city: 'suwon' })),
+            },
+            map: { center: { lat: 37.2636, lng: 127.0286 }, level: 8 },
+          }
     : {
         cityName: '용인시',
         source: 'favorite_restaurants_yongin.csv',
