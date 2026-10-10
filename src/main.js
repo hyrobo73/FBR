@@ -268,7 +268,8 @@ async function openPlaceDialog(place) {
 function handlePlaceSelect(place) {
   selectListItem(place);
   if (isMobileLayout()) {
-    openKakaoPlaceOnMobile(place);
+    openPlaceDialog(place);
+    showReviewsForPlace(place);
     return;
   }
   openKakaoPlacePopup(place);
@@ -278,15 +279,6 @@ function getKakaoPlaceUrl(place) {
   if (place.kakaoId) return `https://place.map.kakao.com/${encodeURIComponent(place.kakaoId)}`;
   if (place.url?.includes('place.map.kakao.com')) return place.url.replace(/^http:/, 'https:');
   return '';
-}
-
-function openKakaoPlaceOnMobile(place) {
-  const url = getKakaoPlaceUrl(place) || place.url;
-  if (url) {
-    window.location.assign(url);
-    return;
-  }
-  openKakaoPlacePopup(place);
 }
 
 function showReviewsForPlace(place) {
@@ -300,12 +292,7 @@ function showReviewsForPlace(place) {
 function showReviews(event) {
   event.preventDefault();
   const place = state.allPlaces.find((item) => item.id === state.selectedPlaceId);
-  if (!place) return;
-  if (isMobileLayout()) {
-    openKakaoPlaceOnMobile(place);
-    return;
-  }
-  showReviewsForPlace(place);
+  if (place) showReviewsForPlace(place);
 }
 
 async function openKakaoPlacePopup(place) {
