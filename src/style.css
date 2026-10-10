@@ -1567,15 +1567,6 @@ h1 {
     border-radius: 20px 20px 0 0;
   }
 
-  /* Kakao's mobile place page pins its app-only promotion to the iframe bottom. */
-  .showing-reviews .review-view {
-    overflow: hidden;
-  }
-
-  .showing-reviews .review-view iframe {
-    height: calc(100% + 76px);
-    margin-bottom: -76px;
-  }
 }
 
 
