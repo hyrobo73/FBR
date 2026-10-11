@@ -166,59 +166,59 @@ a {
   outline: none;
 }
 
-.city-card--yongin {
-  color: #203d31;
-  background: #cfe1ce;
-}
-
 .city-card--gwangju {
-  color: #4a2a20;
-  background: #edc7a5;
+  color: #55362b;
+  background: #f4d3bf;
 }
 
 .city-card--sungnam {
-  color: #2e3d53;
-  background: #cad7e8;
+  color: #53402a;
+  background: #f1d9b4;
 }
 
 .city-card--hanam {
-  color: #3c3557;
-  background: #d9d0eb;
+  color: #50472a;
+  background: #e9dfb1;
+}
+
+.city-card--yongin {
+  color: #35452c;
+  background: #d9e5b9;
 }
 
 .city-card--suwon {
-  color: #3d4531;
-  background: #dce6c5;
+  color: #2d4838;
+  background: #cce4c6;
 }
 
 .city-card--hs {
-  color: #593a32;
-  background: #f0d2c3;
-}
-
-.city-card--gm {
-  color: #294746;
-  background: #c9e3dc;
-}
-
-.city-card--gimpo {
-  color: #36425c;
-  background: #d2d9ed;
-}
-
-.city-card--bucheon {
-  color: #503b59;
-  background: #e5d2e9;
+  color: #29483d;
+  background: #c9e5d8;
 }
 
 .city-card--nyj {
-  color: #29443b;
-  background: #cde5d5;
+  color: #28494a;
+  background: #c6e1df;
 }
 
 .city-card--icheon {
-  color: #5a4530;
-  background: #eadcc2;
+  color: #2d4555;
+  background: #cbdfe9;
+}
+
+.city-card--gm {
+  color: #34435f;
+  background: #cbd7eb;
+}
+
+.city-card--gimpo {
+  color: #483d61;
+  background: #dcd4eb;
+}
+
+.city-card--bucheon {
+  color: #5b3b50;
+  background: #ebd1df;
 }
 
 .card-topline {
