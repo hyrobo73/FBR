@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Convert the Gwangju restaurant CSV into the app's JSON data format."""
+"""Convert a city restaurant CSV into the app's JSON data format."""
 
 import argparse
 import csv
@@ -10,8 +10,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_INPUT = ROOT / "맛집정보" / "favorite_restaurants_bucheon.csv"
-DEFAULT_OUTPUT = ROOT / "src" / "data" / "favorite_restaurants_bucheon.json"
+DEFAULT_INPUT = ROOT / "맛집정보" / "favorite_restaurants_nyj.csv"
+DEFAULT_OUTPUT = ROOT / "src" / "data" / "favorite_restaurants_nyj.json"
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -31,7 +31,7 @@ def number(value: str, field: str, row_number: int, *, integer: bool = False):
         raise ValueError(f"{row_number}행의 {field} 값이 숫자가 아닙니다: {value!r}") from error
 
 
-def convert(rows: list[dict[str, str]]) -> dict:
+def convert(rows: list[dict[str, str]], city: str, source: str) -> dict:
     restaurants = []
     for row_number, row in enumerate(rows, start=2):
         name = (row.get("음식점명") or "").strip()
@@ -50,12 +50,12 @@ def convert(rows: list[dict[str, str]]) -> dict:
         lot_address = (row.get("지번주소") or "").strip()
 
         restaurant = {
-            "id": f"csv-gwangju-{len(restaurants) + 1}",
+            "id": f"csv-{city}-{len(restaurants) + 1}",
             "name": name,
             "rating": number(row.get("별점", ""), "별점", row_number),
             "address": road_address or lot_address,
             "category": category,
-            "city": "gwangju",
+            "city": city,
             "source": "csv",
             "matchStatus": "matched",
             "lat": number(row.get("위도", ""), "위도", row_number),
@@ -72,7 +72,7 @@ def convert(rows: list[dict[str, str]]) -> dict:
         restaurants.append(restaurant)
 
     return {
-        "source": "favorite_restaurant_gwangju.csv",
+        "source": source,
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
         "total": len(restaurants),
         "matchedCount": len(restaurants),
@@ -82,12 +82,13 @@ def convert(rows: list[dict[str, str]]) -> dict:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="광주 맛집 CSV를 앱에서 사용하는 JSON으로 변환합니다.")
+    parser = argparse.ArgumentParser(description="지역별 맛집 CSV를 앱에서 사용하는 JSON으로 변환합니다.")
     parser.add_argument("input", nargs="?", type=Path, default=DEFAULT_INPUT, help="입력 CSV 경로")
     parser.add_argument("output", nargs="?", type=Path, default=DEFAULT_OUTPUT, help="출력 JSON 경로")
     args = parser.parse_args()
 
-    data = convert(read_csv(args.input))
+    city = args.output.stem.removeprefix("favorite_restaurants_")
+    data = convert(read_csv(args.input), city, args.input.name)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"{data['total']}개 음식점을 {args.output}에 저장했습니다.")

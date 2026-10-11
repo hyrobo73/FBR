@@ -211,6 +211,16 @@ a {
   background: #e5d2e9;
 }
 
+.city-card--nyj {
+  color: #29443b;
+  background: #cde5d5;
+}
+
+.city-card--icheon {
+  color: #5a4530;
+  background: #eadcc2;
+}
+
 .card-topline {
   display: flex;
   justify-content: space-between;

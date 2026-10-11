@@ -9,6 +9,8 @@ import hsCoordinates from './data/favorite_restaurants_hs.json';
 import gmCoordinates from './data/favorite_restaurants_gm.json';
 import gimpoCoordinates from './data/favorite_restaurants_gimpo.json';
 import bucheonCoordinates from './data/favorite_restaurants_bucheon.json';
+import nyjCoordinates from './data/favorite_restaurants_nyj.json';
+import icheonCoordinates from './data/favorite_restaurants_icheon.json';
 import { createConfiguredMap, fitMapToPlaces, loadKakaoMaps, YONGIN_CONFIG } from './map.js';
 import { findPlaceDetails, loadRestaurantCsv, locateRestaurants } from './places.js';
 import { createMarkerManager } from './markers.js';
@@ -79,6 +81,20 @@ const appConfig = cityKey === 'gwangju'
             source: 'favorite_restaurants_bucheon.json',
             coordinates: bucheonCoordinates,
             map: { center: { lat: 37.499, lng: 126.784 }, level: 8 },
+          }
+      : cityKey === 'nyj'
+        ? {
+            cityName: '남양주시',
+            source: 'favorite_restaurants_nyj.json',
+            coordinates: nyjCoordinates,
+            map: { center: { lat: 37.64, lng: 127.24 }, level: 9 },
+          }
+      : cityKey === 'icheon'
+        ? {
+            cityName: '이천시',
+            source: 'favorite_restaurants_icheon.json',
+            coordinates: icheonCoordinates,
+            map: { center: { lat: 37.19, lng: 127.49 }, level: 9 },
           }
     : {
         cityName: '용인시',

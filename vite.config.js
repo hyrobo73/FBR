@@ -17,6 +17,8 @@ export default defineConfig({
         gm: resolve(process.cwd(), 'resto_gm.html'),
         gimpo: resolve(process.cwd(), 'resto_gimpo.html'),
         bucheon: resolve(process.cwd(), 'resto_bucheon.html'),
+        nyj: resolve(process.cwd(), 'resto_nyj.html'),
+        icheon: resolve(process.cwd(), 'resto_icheon.html'),
       },
     },
   },
