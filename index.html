@@ -19,13 +19,22 @@
       </a>
       <p class="header-note">좋은 한 끼를 찾는 가장 가까운 지도</p>
     </header>
-    <section class="visitor-stats" aria-label="방문자 통계">
+
+    <section class="visitor-stats" aria-label="방문자 통계" data-page-id="main">
       <div><span>오늘 방문</span><strong id="today-visitors">0</strong></div>
       <div><span>누적 방문</span><strong id="total-visitors">0</strong></div>
     </section>
-    <script type="module" src="./src/visitor-counter.js"></script>
-    <!--<script type="module" src="./src/visitor.js"></script>-->
+    <script defer src="./src/visitor.js"></script>
 
+    <!--
+    <div class="visitor-stats" data-page-id="main">
+      오늘 방문객: <span id="today-visitors">-</span>
+      전체 방문객: <span id="total-visitors">-</span>
+    </div>
+    <script defer src="/src/visitor.js"></script>
+-->
+
+    <!--<script type="module" src="./src/visitor-counter.js"></script>-->
 
     <section class="hero" aria-labelledby="page-title">
       <p class="hero-kicker">오늘은 어디에서 먹을까요?</p>

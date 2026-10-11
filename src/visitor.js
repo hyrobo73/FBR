@@ -1,20 +1,40 @@
+
 document.addEventListener('DOMContentLoaded', async () => {
-  const today = document.getElementById('today-visitors');
-  const total = document.getElementById('total-visitors');
-  if (!today || !total) return;
+  const counter = document.querySelector('[data-page-id]');
+  if (!counter) return;
+
+  const pageId = counter.dataset.pageId;
+  const todayEl = document.getElementById('today-visitors');
+  const totalEl = document.getElementById('total-visitors');
+
+  if (!todayEl || !totalEl) return;
 
   try {
+    // 같은 탭 세션에서 페이지별로 재사용할 ID
+    const key = 'visitor-session-id';
+    let sessionId = sessionStorage.getItem(key);
+
+    if (!sessionId) {
+      sessionId = crypto.randomUUID();
+      sessionStorage.setItem(key, sessionId);
+    }
+
     const response = await fetch('/api/visit', {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pageId, sessionId }),
       cache: 'no-store'
     });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const counts = await response.json();
-    today.textContent = Number(counts.today).toLocaleString('ko-KR');
-    total.textContent = Number(counts.total).toLocaleString('ko-KR');
+
+    if (!response.ok) throw new Error('API error');
+
+    const data = await response.json();
+
+    todayEl.textContent = data.today.toLocaleString('ko-KR');
+    totalEl.textContent = data.total.toLocaleString('ko-KR');
   } catch (error) {
-    console.error('Visitor counter error:', error);
-    today.textContent = '-';
-    total.textContent = '-';
+    console.error('방문객 카운터 오류:', error);
+    todayEl.textContent = '-';
+    totalEl.textContent = '-';
   }
 });

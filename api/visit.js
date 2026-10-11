@@ -16,56 +16,46 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
 
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
     return res.status(405).json({
-      error: 'POST 요청만 허용됩니다.'
+      error: 'Method not allowed'
     });
   }
 
-  const sessionId = req.body?.sessionId;
+  const { pageId, sessionId } = req.body || {};
 
-  // UUID 형식 검증
-  const uuidPattern =
-    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  const validPage =
+    typeof pageId === 'string' &&
+    /^[a-z0-9_-]{1,100}$/.test(pageId);
 
-  if (
-    typeof sessionId !== 'string' ||
-    !uuidPattern.test(sessionId)
-  ) {
+  const validSession =
+    typeof sessionId === 'string' &&
+    /^[0-9a-f]{8}-[0-9a-f-]{27,28}$/i.test(sessionId);
+
+  if (!validPage || !validSession) {
     return res.status(400).json({
-      error: '올바르지 않은 세션 ID입니다.'
+      error: 'Invalid request'
     });
   }
 
   try {
     const { data, error } = await supabase.rpc(
-      'record_visitor',
-      { p_session_id: sessionId }
+      'record_page_session',
+      {
+        p_page_id: pageId,
+        p_session_id: sessionId
+      }
     );
 
-    if (error) {
-      console.error('Visitor counter error:', error.message);
-      return res.status(500).json({
-        error: '방문 통계를 불러오지 못했습니다.'
-      });
-    }
-
-    const result = data?.[0];
-
-    if (!result) {
-      return res.status(500).json({
-        error: '집계 결과가 없습니다.'
-      });
-    }
+    if (error) throw error;
 
     return res.status(200).json({
-      today: Number(result.today_visitors),
-      total: Number(result.total_visitors)
+      today: Number(data[0].today_visitors),
+      total: Number(data[0].total_visitors)
     });
   } catch (error) {
-    console.error('Visitor API error:', error.message);
+    console.error(error);
     return res.status(500).json({
-      error: '서버 오류가 발생했습니다.'
+      error: '방문객 집계 실패'
     });
   }
 }
