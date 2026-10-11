@@ -10,8 +10,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_INPUT = ROOT / "맛집정보" / "favorite_restaurants_suwon.csv"
-DEFAULT_OUTPUT = ROOT / "src" / "data" / "favorite_restaurants_suwon.json"
+DEFAULT_INPUT = ROOT / "맛집정보" / "favorite_restaurants_bucheon.csv"
+DEFAULT_OUTPUT = ROOT / "src" / "data" / "favorite_restaurants_bucheon.json"
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:

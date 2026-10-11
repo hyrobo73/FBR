@@ -191,6 +191,26 @@ a {
   background: #dce6c5;
 }
 
+.city-card--hs {
+  color: #593a32;
+  background: #f0d2c3;
+}
+
+.city-card--gm {
+  color: #294746;
+  background: #c9e3dc;
+}
+
+.city-card--gimpo {
+  color: #36425c;
+  background: #d2d9ed;
+}
+
+.city-card--bucheon {
+  color: #503b59;
+  background: #e5d2e9;
+}
+
 .card-topline {
   display: flex;
   justify-content: space-between;

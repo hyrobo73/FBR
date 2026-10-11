@@ -2,9 +2,13 @@ import './style.css';
 import yonginCsvUrl from '../맛집정보/favorite_restaurants_yongin.csv?url';
 import yonginCoordinates from './data/favorite_restaurants_yongin.json';
 import gwangjuCoordinates from './data/favorite_restaurants_gwangju.json';
-import sungnamCoordinates from './data/favorite_restaurants_sungnam.json';
+import sungnamCoordinates from './data/favorite_restaurants_seongnam.json';
 import hanamCoordinates from './data/favorite_restaurants_hanam.json';
 import suwonCoordinates from './data/favorite_restaurants_suwon.json';
+import hsCoordinates from './data/favorite_restaurants_hs.json';
+import gmCoordinates from './data/favorite_restaurants_gm.json';
+import gimpoCoordinates from './data/favorite_restaurants_gimpo.json';
+import bucheonCoordinates from './data/favorite_restaurants_bucheon.json';
 import { createConfiguredMap, fitMapToPlaces, loadKakaoMaps, YONGIN_CONFIG } from './map.js';
 import { findPlaceDetails, loadRestaurantCsv, locateRestaurants } from './places.js';
 import { createMarkerManager } from './markers.js';
@@ -21,7 +25,7 @@ const appConfig = cityKey === 'gwangju'
   : cityKey === 'sungnam'
     ? {
         cityName: '성남시',
-        source: 'favorite_restaurants_sungnam.json',
+        source: 'favorite_restaurants_seongnam.json',
         coordinates: {
           ...sungnamCoordinates,
           restaurants: sungnamCoordinates.restaurants.map((place) => ({ ...place, city: 'sungnam' })),
@@ -47,6 +51,34 @@ const appConfig = cityKey === 'gwangju'
               restaurants: suwonCoordinates.restaurants.map((place) => ({ ...place, city: 'suwon' })),
             },
             map: { center: { lat: 37.2636, lng: 127.0286 }, level: 8 },
+          }
+      : cityKey === 'hs'
+        ? {
+            cityName: '화성시',
+            source: 'favorite_restaurants_hs.json',
+            coordinates: hsCoordinates,
+            map: { center: { lat: 37.168, lng: 126.92 }, level: 9 },
+          }
+      : cityKey === 'gm'
+        ? {
+            cityName: '광명시',
+            source: 'favorite_restaurants_gm.json',
+            coordinates: gmCoordinates,
+            map: { center: { lat: 37.448, lng: 126.873 }, level: 8 },
+          }
+      : cityKey === 'gimpo'
+        ? {
+            cityName: '김포시',
+            source: 'favorite_restaurants_gimpo.json',
+            coordinates: gimpoCoordinates,
+            map: { center: { lat: 37.666, lng: 126.65 }, level: 9 },
+          }
+      : cityKey === 'bucheon'
+        ? {
+            cityName: '부천시',
+            source: 'favorite_restaurants_bucheon.json',
+            coordinates: bucheonCoordinates,
+            map: { center: { lat: 37.499, lng: 126.784 }, level: 8 },
           }
     : {
         cityName: '용인시',
