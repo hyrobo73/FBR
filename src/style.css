@@ -456,6 +456,42 @@ h1 {
   background: var(--accent);
 }
 
+.map-visitor-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  flex: 0 0 auto;
+  margin-top: 12px;
+  padding: 7px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgb(255 255 255 / 70%);
+}
+
+.map-visitor-stats>div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: 9px;
+  background: var(--accent-soft);
+}
+
+.map-visitor-stats span {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.map-visitor-stats strong {
+  color: var(--accent-dark);
+  font: 700 14px/1 'DM Sans', 'Noto Sans KR', sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
 .sidebar-footer {
   padding-top: 11px;
   color: #b0aaa0;

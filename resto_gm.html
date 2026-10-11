@@ -40,6 +40,11 @@
       </div>
       <div id="status" class="status" role="status" aria-live="polite">지도를 준비하고 있어요.</div>
       <ul id="restaurant-list" class="restaurant-list" aria-label="광명 맛집 목록"></ul>
+      <section class="map-visitor-stats" aria-label="광명 지도 방문자 통계" data-page-id="gm">
+        <div><span>오늘 방문</span><strong id="today-visitors">-</strong></div>
+        <div><span>누적 방문</span><strong id="total-visitors">-</strong></div>
+      </section>
+      <script type="module" src="./src/visitor.js"></script>
       <footer class="sidebar-footer">장소 및 지도 정보 제공 · Kakao Maps</footer>
     </aside>
 
