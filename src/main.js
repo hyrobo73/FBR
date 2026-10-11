@@ -106,6 +106,7 @@ let mapZoomSlider;
 let mapControlStack;
 let dialogDrag = null;
 let listDrag = null;
+let cancelPendingMapFit = null;
 
 function isMobileLayout() {
   return window.matchMedia('(max-width: 760px), (pointer: coarse) and (max-width: 1366px)').matches;
@@ -192,16 +193,18 @@ function createListItem(place, index) {
 }
 
 function renderPlaces(places, { fit = true } = {}) {
+  cancelPendingMapFit?.();
+  cancelPendingMapFit = null;
   state.visiblePlaces = places;
   elements.list.replaceChildren(...places.map(createListItem));
   elements.count.textContent = `${places.length}곳`;
   state.markerManager.render(places);
-  if (fit) fitMapToPlaces(state.map, places);
+  if (fit) cancelPendingMapFit = fitMapToPlaces(state.map, places);
   if (!places.length) setStatus('조건에 맞는 맛집을 찾지 못했어요.', 'empty');
   else setStatus();
 }
 
-function applyFilters() {
+function applyFilters({ fit = true } = {}) {
   const normalizeSearchText = (value = '') => value
     .normalize('NFKC')
     .toLocaleLowerCase('ko-KR')
@@ -221,7 +224,7 @@ function applyFilters() {
     return categoryMatches && queryMatches;
   });
   elements.resultLabel.textContent = state.query ? `${state.category} · “${state.query}”` : `${state.category} 맛집`;
-  renderPlaces(places);
+  renderPlaces(places, { fit });
 }
 
 function updateDialog(place, { preserveReviewView = false } = {}) {
@@ -390,6 +393,10 @@ async function loadRestaurants() {
 }
 
 function bindEvents() {
+  const categoryTabs = document.querySelector('#category-tabs');
+  ['touchstart', 'touchmove', 'touchend', 'touchcancel'].forEach((type) => {
+    categoryTabs.addEventListener(type, (event) => event.stopPropagation(), { passive: true });
+  });
   elements.categoryTabs.forEach((tab) => tab.addEventListener('click', () => {
     state.category = tab.dataset.category;
     elements.mapShell.dataset.theme = state.category;
@@ -399,7 +406,7 @@ function bindEvents() {
       candidate.classList.toggle('is-active', active);
       candidate.setAttribute('aria-pressed', String(active));
     });
-    applyFilters();
+    applyFilters({ fit: false });
   }));
 
   elements.searchForm.addEventListener('submit', (event) => {

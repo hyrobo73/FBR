@@ -697,6 +697,7 @@ h1 {
   overscroll-behavior-x: contain;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
 }
 
 .map-category-tabs::-webkit-scrollbar {
