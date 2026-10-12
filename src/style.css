@@ -1272,6 +1272,20 @@ h1 {
     will-change: transform;
   }
 
+  .card-top {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .card-top strong {
+    max-width: 100%;
+  }
+
+  .rating {
+    white-space: nowrap;
+  }
+
   .sidebar.is-open {
     transform: translateY(0);
   }
