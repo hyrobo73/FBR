@@ -341,6 +341,7 @@ function showReviewsForPlace(place) {
   const reviewUrl = getKakaoPlaceUrl(place) || elements.dialogLink.href;
   elements.reviewFrame.src = reviewUrl;
   elements.reviewExternal.href = reviewUrl;
+  elements.reviewBack.textContent = isMobileLayout() ? '목록보기' : '맛집 정보로';
   elements.dialog.classList.add('showing-reviews');
   requestAnimationFrame(syncMapControlsWithPanels);
 }
@@ -559,6 +560,11 @@ function bindEvents() {
   });
   elements.dialogLink.addEventListener('click', showReviews);
   elements.reviewBack.addEventListener('click', () => {
+    if (isMobileLayout()) {
+      closePlacePanel();
+      setMobileListOpen(true);
+      return;
+    }
     elements.reviewFrame.removeAttribute('src');
     elements.dialog.classList.remove('showing-reviews');
     requestAnimationFrame(syncMapControlsWithPanels);
