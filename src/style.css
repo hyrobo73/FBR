@@ -397,6 +397,12 @@ h1 {
   color: var(--accent);
 }
 
+.rating .review-count {
+  margin-left: 5px;
+  color: #706c64;
+  font: 500 10px 'DM Sans', sans-serif;
+}
+
 .kakao-result {
   flex: 0 0 auto;
   color: var(--green);

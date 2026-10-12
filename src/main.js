@@ -218,11 +218,15 @@ function createListItem(place, index) {
   const safeName = escapeHtml(place.name);
   const safeAddress = escapeHtml(place.address || '주소 정보 없음');
   const meta = escapeHtml([place.category, place.phone].filter(Boolean).join(' · '));
+  const reviewCount = Number(place.reviewCount);
+  const reviewLabel = place.reviewCount != null && place.reviewCount !== '' && Number.isFinite(reviewCount)
+    ? `<span class="review-count">리뷰 ${reviewCount.toLocaleString('ko-KR')}건</span>`
+    : '';
   item.innerHTML = `
     <button type="button" aria-label="${safeName} 상세정보 보기">
       <span class="rank">${String(index + 1).padStart(2, '0')}</span>
       <span class="card-content">
-        <span class="card-top"><strong>${safeName}</strong><span class="rating"><span aria-hidden="true">★</span> ${place.rating.toFixed(2)}</span></span>
+        <span class="card-top"><strong>${safeName}</strong><span class="rating"><span aria-hidden="true">★</span> ${place.rating.toFixed(2)}${reviewLabel}</span></span>
         <span class="address">${safeAddress}</span>
         <span class="category">${meta}</span>
       </span>
