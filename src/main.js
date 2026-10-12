@@ -223,7 +223,7 @@ function createListItem(place, index) {
     ? `<span class="review-count">리뷰 ${reviewCount.toLocaleString('ko-KR')}건</span>`
     : '';
   item.innerHTML = `
-    <button type="button" aria-label="${safeName} 상세정보 보기">
+    <button type="button" aria-label="${safeName} ${isMobileLayout() ? '카카오맵 리뷰 보기' : '상세정보 보기'}">
       <span class="rank">${String(index + 1).padStart(2, '0')}</span>
       <span class="card-content">
         <span class="card-top"><strong>${safeName}</strong><span class="rating"><span aria-hidden="true">★</span> ${place.rating.toFixed(2)}${reviewLabel}</span></span>
@@ -235,8 +235,9 @@ function createListItem(place, index) {
   item.querySelector('button').addEventListener('click', () => {
     state.markerManager.open(place);
     if (isMobileLayout()) {
-      setMobileListOpen(false);
       openPlaceDialog(place);
+      showReviewsForPlace(place);
+      setMobileListOpen(false);
       return;
     }
     handlePlaceSelect(place);
