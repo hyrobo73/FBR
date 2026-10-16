@@ -11,97 +11,66 @@ import gimpoCoordinates from './data/favorite_restaurants_gimpo.json';
 import bucheonCoordinates from './data/favorite_restaurants_bucheon.json';
 import nyjCoordinates from './data/favorite_restaurants_nyj.json';
 import icheonCoordinates from './data/favorite_restaurants_icheon.json';
+import gwacheonCoordinates from './data/favorite_restaurants_gwacheon.json';
+import gapyungCoordinates from './data/favorite_restaurants_gapyung.json';
+import ypCoordinates from './data/favorite_restaurants_yp.json';
+import ycCoordinates from './data/favorite_restaurants_yc.json';
+import ujbCoordinates from './data/favorite_restaurants_ujb.json';
+import pjCoordinates from './data/favorite_restaurants_pj.json';
+import ptCoordinates from './data/favorite_restaurants_pt.json';
+import ansanCoordinates from './data/favorite_restaurants_ansan.json';
+import goyangCoordinates from './data/favorite_restaurants_goyang.json';
+import shCoordinates from './data/favorite_restaurants_sh.json';
+import ayCoordinates from './data/favorite_restaurants_ay.json';
+import yjCoordinates from './data/favorite_restaurants_yj.json';
+import grCoordinates from './data/favorite_restaurants_gr.json';
+import ddcCoordinates from './data/favorite_restaurants_ddc.json';
+import ansCoordinates from './data/favorite_restaurants_ans.json';
+import yajCoordinates from './data/favorite_restaurants_yaj.json';
+import osCoordinates from './data/favorite_restaurants_os.json';
+import uwCoordinates from './data/favorite_restaurants_uw.json';
+import pcCoordinates from './data/favorite_restaurants_pc.json';
+import gupCoordinates from './data/favorite_restaurants_gup.json';
 import { createConfiguredMap, fitMapToPlaces, loadKakaoMaps, YONGIN_CONFIG } from './map.js';
 import { findPlaceDetails, loadRestaurantCsv, locateRestaurants } from './places.js';
 import { createMarkerManager } from './markers.js';
 import { getCurrentPosition, showCurrentPosition } from './geolocation.js';
 
 const cityKey = document.documentElement.dataset.city || 'yongin';
-const appConfig = cityKey === 'gwangju'
-  ? {
-      cityName: '광주시',
-      source: 'favorite_restaurants_gwangju.csv',
-      coordinates: gwangjuCoordinates,
-      map: { center: { lat: 37.4095, lng: 127.2550 }, level: 9 },
-    }
-  : cityKey === 'sungnam'
-    ? {
-        cityName: '성남시',
-        source: 'favorite_restaurants_seongnam.json',
-        coordinates: {
-          ...sungnamCoordinates,
-          restaurants: sungnamCoordinates.restaurants.map((place) => ({ ...place, city: 'sungnam' })),
-        },
-        map: { center: { lat: 37.4202, lng: 127.1265 }, level: 9 },
-      }
-    : cityKey === 'hanam'
-      ? {
-          cityName: '하남시',
-          source: 'favorite_restaurants_hanam.json',
-          coordinates: {
-            ...hanamCoordinates,
-            restaurants: hanamCoordinates.restaurants.map((place) => ({ ...place, city: 'hanam' })),
-          },
-          map: { center: { lat: 37.5393, lng: 127.2148 }, level: 8 },
-        }
-      : cityKey === 'suwon'
-        ? {
-            cityName: '수원시',
-            source: 'favorite_restaurants_suwon.json',
-            coordinates: {
-              ...suwonCoordinates,
-              restaurants: suwonCoordinates.restaurants.map((place) => ({ ...place, city: 'suwon' })),
-            },
-            map: { center: { lat: 37.2636, lng: 127.0286 }, level: 8 },
-          }
-      : cityKey === 'hs'
-        ? {
-            cityName: '화성시',
-            source: 'favorite_restaurants_hs.json',
-            coordinates: hsCoordinates,
-            map: { center: { lat: 37.168, lng: 126.92 }, level: 9 },
-          }
-      : cityKey === 'gm'
-        ? {
-            cityName: '광명시',
-            source: 'favorite_restaurants_gm.json',
-            coordinates: gmCoordinates,
-            map: { center: { lat: 37.448, lng: 126.873 }, level: 8 },
-          }
-      : cityKey === 'gimpo'
-        ? {
-            cityName: '김포시',
-            source: 'favorite_restaurants_gimpo.json',
-            coordinates: gimpoCoordinates,
-            map: { center: { lat: 37.666, lng: 126.65 }, level: 9 },
-          }
-      : cityKey === 'bucheon'
-        ? {
-            cityName: '부천시',
-            source: 'favorite_restaurants_bucheon.json',
-            coordinates: bucheonCoordinates,
-            map: { center: { lat: 37.499, lng: 126.784 }, level: 8 },
-          }
-      : cityKey === 'nyj'
-        ? {
-            cityName: '남양주시',
-            source: 'favorite_restaurants_nyj.json',
-            coordinates: nyjCoordinates,
-            map: { center: { lat: 37.64, lng: 127.24 }, level: 9 },
-          }
-      : cityKey === 'icheon'
-        ? {
-            cityName: '이천시',
-            source: 'favorite_restaurants_icheon.json',
-            coordinates: icheonCoordinates,
-            map: { center: { lat: 37.19, lng: 127.49 }, level: 9 },
-          }
-    : {
-        cityName: '용인시',
-        source: 'favorite_restaurants_yongin.csv',
-        coordinates: yonginCoordinates,
-        map: YONGIN_CONFIG,
-      };
+const cityConfigs = {
+  yongin: { cityName: '용인시', source: 'favorite_restaurants_yongin.csv', coordinates: yonginCoordinates, map: YONGIN_CONFIG },
+  gwangju: { cityName: '광주시', source: 'favorite_restaurants_gwangju.csv', coordinates: gwangjuCoordinates, map: { center: { lat: 37.4095, lng: 127.2550 }, level: 9 } },
+  sungnam: { cityName: '성남시', source: 'favorite_restaurants_seongnam.json', coordinates: sungnamCoordinates, map: { center: { lat: 37.4202, lng: 127.1265 }, level: 9 } },
+  hanam: { cityName: '하남시', source: 'favorite_restaurants_hanam.json', coordinates: hanamCoordinates, map: { center: { lat: 37.5393, lng: 127.2148 }, level: 8 } },
+  suwon: { cityName: '수원시', source: 'favorite_restaurants_suwon.json', coordinates: suwonCoordinates, map: { center: { lat: 37.2636, lng: 127.0286 }, level: 8 } },
+  hs: { cityName: '화성시', source: 'favorite_restaurants_hs.json', coordinates: hsCoordinates, map: { center: { lat: 37.168, lng: 126.92 }, level: 9 } },
+  gm: { cityName: '광명시', source: 'favorite_restaurants_gm.json', coordinates: gmCoordinates, map: { center: { lat: 37.448, lng: 126.873 }, level: 8 } },
+  gimpo: { cityName: '김포시', source: 'favorite_restaurants_gimpo.json', coordinates: gimpoCoordinates, map: { center: { lat: 37.666, lng: 126.65 }, level: 9 } },
+  bucheon: { cityName: '부천시', source: 'favorite_restaurants_bucheon.json', coordinates: bucheonCoordinates, map: { center: { lat: 37.499, lng: 126.784 }, level: 8 } },
+  nyj: { cityName: '남양주시', source: 'favorite_restaurants_nyj.json', coordinates: nyjCoordinates, map: { center: { lat: 37.64, lng: 127.24 }, level: 9 } },
+  icheon: { cityName: '이천시', source: 'favorite_restaurants_icheon.json', coordinates: icheonCoordinates, map: { center: { lat: 37.19, lng: 127.49 }, level: 9 } },
+  gwacheon: { cityName: '과천시', source: 'favorite_restaurants_gwacheon.json', coordinates: gwacheonCoordinates, map: { center: { lat: 37.434, lng: 127.004 }, level: 8 } },
+  gapyung: { cityName: '가평군', source: 'favorite_restaurants_gapyung.json', coordinates: gapyungCoordinates, map: { center: { lat: 37.776, lng: 127.420 }, level: 9 } },
+  yp: { cityName: '양평군', source: 'favorite_restaurants_yp.json', coordinates: ypCoordinates, map: { center: { lat: 37.531, lng: 127.534 }, level: 9 } },
+  yc: { cityName: '연천군', source: 'favorite_restaurants_yc.json', coordinates: ycCoordinates, map: { center: { lat: 38.087, lng: 127.027 }, level: 9 } },
+  ujb: { cityName: '의정부시', source: 'favorite_restaurants_ujb.json', coordinates: ujbCoordinates, map: { center: { lat: 37.733, lng: 127.066 }, level: 8 } },
+  pj: { cityName: '파주시', source: 'favorite_restaurants_pj.json', coordinates: pjCoordinates, map: { center: { lat: 37.841, lng: 126.816 }, level: 9 } },
+  pt: { cityName: '평택시', source: 'favorite_restaurants_pt.json', coordinates: ptCoordinates, map: { center: { lat: 37.035, lng: 126.993 }, level: 9 } },
+  ansan: { cityName: '안산시', source: 'favorite_restaurants_ansan.json', coordinates: ansanCoordinates, map: { center: { lat: 37.322, lng: 126.834 }, level: 8 } },
+  goyang: { cityName: '고양시', source: 'favorite_restaurants_goyang.json', coordinates: goyangCoordinates, map: { center: { lat: 37.653, lng: 126.827 }, level: 9 } },
+  sh: { cityName: '시흥시', source: 'favorite_restaurants_sh.json', coordinates: shCoordinates, map: { center: { lat: 37.395, lng: 126.761 }, level: 9 } },
+  ay: { cityName: '안양시', source: 'favorite_restaurants_ay.json', coordinates: ayCoordinates, map: { center: { lat: 37.393, lng: 126.956 }, level: 8 } },
+  yj: { cityName: '여주시', source: 'favorite_restaurants_yj.json', coordinates: yjCoordinates, map: { center: { lat: 37.291, lng: 127.618 }, level: 9 } },
+  gr: { cityName: '구리시', source: 'favorite_restaurants_gr.json', coordinates: grCoordinates, map: { center: { lat: 37.611, lng: 127.132 }, level: 8 } },
+  ddc: { cityName: '동두천시', source: 'favorite_restaurants_ddc.json', coordinates: ddcCoordinates, map: { center: { lat: 37.914, lng: 127.059 }, level: 8 } },
+  ans: { cityName: '안성시', source: 'favorite_restaurants_ans.json', coordinates: ansCoordinates, map: { center: { lat: 37.032, lng: 127.314 }, level: 9 } },
+  yaj: { cityName: '양주시', source: 'favorite_restaurants_yaj.json', coordinates: yajCoordinates, map: { center: { lat: 37.799, lng: 127.021 }, level: 9 } },
+  os: { cityName: '오산시', source: 'favorite_restaurants_os.json', coordinates: osCoordinates, map: { center: { lat: 37.164, lng: 127.056 }, level: 8 } },
+  uw: { cityName: '의왕시', source: 'favorite_restaurants_uw.json', coordinates: uwCoordinates, map: { center: { lat: 37.364, lng: 126.985 }, level: 8 } },
+  pc: { cityName: '포천시', source: 'favorite_restaurants_pc.json', coordinates: pcCoordinates, map: { center: { lat: 37.925, lng: 127.261 }, level: 10 } },
+  gup: { cityName: '군포시', source: 'favorite_restaurants_gup.json', coordinates: gupCoordinates, map: { center: { lat: 37.360, lng: 126.937 }, level: 8 } },
+};
+const appConfig = cityConfigs[cityKey] || cityConfigs.yongin;
 
 const elements = {
   map: document.querySelector('#map'),
@@ -398,11 +367,8 @@ async function loadRestaurants() {
     return;
   }
 
-  if (cityKey === 'gwangju') {
-    throw new Error('광주시 음식점 좌표 데이터가 없습니다. npm run data:geocode:gwangju를 실행해 주세요.');
-  }
-  if (cityKey === 'sungnam') {
-    throw new Error('성남시 음식점 좌표 데이터가 없습니다. favorite_restaurants_sungnam.json을 확인해 주세요.');
+  if (cityKey !== 'yongin') {
+    throw new Error(`${appConfig.cityName} 음식점 좌표 데이터가 없습니다. ${appConfig.source} 파일을 확인해 주세요.`);
   }
 
   const restaurants = await loadRestaurantCsv(yonginCsvUrl);

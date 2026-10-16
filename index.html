@@ -33,6 +33,28 @@
       <p class="hero-copy">지역을 선택하면 한식·중식·일식·양식 맛집을 지도 위에서 바로 둘러볼 수 있어요.</p>
     </section>
 
+    <section class="city-finder" aria-label="시군 찾기">
+      <div class="city-finder-heading">
+        <div>
+          <p class="city-finder-kicker">FIND YOUR CITY</p>
+          <h2>어느 지역을 찾으세요?</h2>
+        </div>
+        <p id="city-result-count" class="city-result-count" aria-live="polite">전체 31개 시군</p>
+      </div>
+      <label class="city-search" for="city-search-input">
+        <span class="city-search-icon" aria-hidden="true"></span>
+        <input id="city-search-input" type="search" placeholder="시군명 검색 · 예: 수원, 남양주" autocomplete="off" />
+      </label>
+      <div class="city-filters" role="group" aria-label="권역별 필터">
+        <button type="button" class="city-filter is-active" data-region="all" aria-pressed="true">전체</button>
+        <button type="button" class="city-filter" data-region="south" aria-pressed="false">남부</button>
+        <button type="button" class="city-filter" data-region="north" aria-pressed="false">북부</button>
+        <button type="button" class="city-filter" data-region="east" aria-pressed="false">동부</button>
+        <button type="button" class="city-filter" data-region="west" aria-pressed="false">서부</button>
+      </div>
+    </section>
+
+    <p id="city-empty" class="city-empty" role="status" hidden>검색 결과가 없습니다. 다른 시군명을 입력하거나 권역을 변경해 보세요.</p>
     <section class="city-grid" aria-label="지역 선택">
 
       <a class="city-card city-card--gwangju" href="./resto_gwangju.html">
@@ -179,6 +201,107 @@
         </div>
       </a>
 
+      <a class="city-card city-card--goyang" href="./resto_goyang.html">
+        <div class="card-topline"><span>12</span><span>GOYANG</span></div>
+        <div class="card-main"><p class="card-region">덕양 · 일산동 · 일산서</p><h2>고양시</h2><p>고양 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>621</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--gwacheon" href="./resto_gwacheon.html">
+        <div class="card-topline"><span>13</span><span>GWACHEON</span></div>
+        <div class="card-main"><p class="card-region">중앙 · 별양 · 문원</p><h2>과천시</h2><p>과천 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>37</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--ansan" href="./resto_ansan.html">
+        <div class="card-topline"><span>14</span><span>ANSAN</span></div>
+        <div class="card-main"><p class="card-region">상록 · 단원 · 고잔</p><h2>안산시</h2><p>안산 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>234</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--pt" href="./resto_pt.html">
+        <div class="card-topline"><span>15</span><span>PYEONGTAEK</span></div>
+        <div class="card-main"><p class="card-region">송탄 · 비전 · 안중</p><h2>평택시</h2><p>평택 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>273</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--ujb" href="./resto_ujb.html">
+        <div class="card-topline"><span>16</span><span>UIJEONGBU</span></div>
+        <div class="card-main"><p class="card-region">의정부 · 민락 · 가능</p><h2>의정부시</h2><p>의정부 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>179</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--pj" href="./resto_pj.html">
+        <div class="card-topline"><span>17</span><span>PAJU</span></div>
+        <div class="card-main"><p class="card-region">운정 · 금촌 · 문산</p><h2>파주시</h2><p>파주 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>249</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--gapyung" href="./resto_gapyung.html">
+        <div class="card-topline"><span>18</span><span>GAPYEONG</span></div>
+        <div class="card-main"><p class="card-region">가평 · 청평 · 설악</p><h2>가평군</h2><p>가평 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>126</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--yp" href="./resto_yp.html">
+        <div class="card-topline"><span>19</span><span>YANGPYEONG</span></div>
+        <div class="card-main"><p class="card-region">양평 · 양서 · 용문</p><h2>양평군</h2><p>양평 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>115</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--yc" href="./resto_yc.html">
+        <div class="card-topline"><span>20</span><span>YEONCHEON</span></div>
+        <div class="card-main"><p class="card-region">연천 · 전곡 · 청산</p><h2>연천군</h2><p>연천 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>28</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--sh" href="./resto_sh.html">
+        <div class="card-topline"><span>21</span><span>SIHEUNG</span></div>
+        <div class="card-main"><p class="card-region">정왕 · 배곧 · 은계</p><h2>시흥시</h2><p>시흥 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>192</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--ay" href="./resto_ay.html">
+        <div class="card-topline"><span>22</span><span>ANYANG</span></div>
+        <div class="card-main"><p class="card-region">만안 · 동안 · 평촌</p><h2>안양시</h2><p>안양 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>333</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--yj" href="./resto_yj.html">
+        <div class="card-topline"><span>23</span><span>YEOJU</span></div>
+        <div class="card-main"><p class="card-region">여주 · 가남 · 대신</p><h2>여주시</h2><p>여주 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>69</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--gr" href="./resto_gr.html">
+        <div class="card-topline"><span>24</span><span>GURI</span></div>
+        <div class="card-main"><p class="card-region">갈매 · 인창 · 수택</p><h2>구리시</h2><p>구리 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>80</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--ddc" href="./resto_ddc.html">
+        <div class="card-topline"><span>25</span><span>DONGDUCHEON</span></div>
+        <div class="card-main"><p class="card-region">생연 · 지행 · 송내</p><h2>동두천시</h2><p>동두천 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>25</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--ans" href="./resto_ans.html">
+        <div class="card-topline"><span>26</span><span>ANSEONG</span></div>
+        <div class="card-main"><p class="card-region">안성 · 공도 · 죽산</p><h2>안성시</h2><p>안성 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>69</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--yaj" href="./resto_yaj.html">
+        <div class="card-topline"><span>27</span><span>YANGJU</span></div>
+        <div class="card-main"><p class="card-region">옥정 · 덕정 · 백석</p><h2>양주시</h2><p>양주 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>105</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--os" href="./resto_os.html">
+        <div class="card-topline"><span>28</span><span>OSAN</span></div>
+        <div class="card-main"><p class="card-region">오산 · 세교 · 원동</p><h2>오산시</h2><p>오산 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>91</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--uw" href="./resto_uw.html">
+        <div class="card-topline"><span>29</span><span>UIWANG</span></div>
+        <div class="card-main"><p class="card-region">오전 · 내손 · 청계</p><h2>의왕시</h2><p>의왕 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>68</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--pc" href="./resto_pc.html">
+        <div class="card-topline"><span>30</span><span>POCHEON</span></div>
+        <div class="card-main"><p class="card-region">포천 · 소흘 · 일동</p><h2>포천시</h2><p>포천 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>112</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+      <a class="city-card city-card--gunpo" href="./resto_gup.html">
+        <div class="card-topline"><span>31</span><span>GUNPO</span></div>
+        <div class="card-main"><p class="card-region">산본 · 금정 · 당동</p><h2>군포시</h2><p>군포 곳곳의 맛집을 지도에서 찾아보세요.</p></div>
+        <div class="card-footer"><div><strong>103</strong><span>지역 맛집</span></div><div class="category-dots" aria-label="한식, 중식, 일식, 양식"><i></i><i></i><i></i><i></i></div><span class="card-arrow" aria-hidden="true">↗</span></div>
+      </a>
+
     </section>
 
     <footer class="landing-footer">
@@ -186,6 +309,7 @@
       <p>지역별 맛집은 계속 확장됩니다.</p>
     </footer>
   </main>
+  <script type="module" src="./src/city-finder.js"></script>
   <script>
     (() => {
       const storageKey = 'gyeonggi-food-map-visitor-counts-v1';
